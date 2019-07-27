@@ -1,5 +1,10 @@
 //intial state
-const intialState = {};
+const intialState = {
+	isAuth: null,
+	loading: true,
+	token: '',
+	user: null
+};
 
 //auth reducer
 /**
