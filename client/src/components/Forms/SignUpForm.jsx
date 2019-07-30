@@ -1,38 +1,27 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import SignUpButton from '../Buttons/SignUpButton';
 
 export default class SignUpForm extends Component {
-	state = {
-		username: '',
-		password: '',
-		email: '',
-		confirmEmail: '',
-		confirmPassword: ''
-	};
-	changeHandler = evt => {
-		const { name, value } = evt.target;
-		this.setState({ [name]: value });
-	};
-	submitHandler = (data, evt) => {
-		evt.preventDefault();
-		this.setState({
-			username: '',
-			password: '',
-			email: '',
-			confirmEmail: '',
-			confirmPassword: ''
-		});
+	static propTypes = {
+		submit: PropTypes.func,
+		email: PropTypes.string.isRequired,
+		password: PropTypes.string.isRequired,
+		username: PropTypes.string.isRequired,
+		confirmEmail: PropTypes.string.isRequired,
+		confirmPassword: PropTypes.string.isRequired
 	};
 	render() {
 		return (
-			<form data-test='app-signup-form'>
+			<form data-test='app-signup-form' onSubmit={this.props.submit}>
 				<div className='form-group'>
 					<input
 						type='text'
 						name='username'
 						id='username'
 						placeholder='username'
-						value={this.state.username}
+						value={this.props.username}
+						onChange={this.props.change}
 						className='form-control form-control-lg'
 					/>
 					<input
@@ -40,7 +29,8 @@ export default class SignUpForm extends Component {
 						name='email'
 						id='email'
 						placeholder='@email.com'
-						value={this.state.email}
+						value={this.props.email}
+						onChange={this.props.change}
 						className='form-control form-control-lg'
 					/>
 					<input
@@ -48,7 +38,8 @@ export default class SignUpForm extends Component {
 						name='confirmEmail'
 						id='confirmEmail'
 						placeholder='@email.com'
-						value={this.state.confirmEmail}
+						value={this.props.confirmEmail}
+						onChange={this.props.change}
 						className='form-control form-control-lg'
 					/>
 					<input
@@ -56,7 +47,8 @@ export default class SignUpForm extends Component {
 						name='password'
 						id='password'
 						placeholder='password'
-						value={this.state.password}
+						value={this.props.password}
+						onChange={this.props.change}
 						className='form-control form-control-lg'
 					/>
 					<input
@@ -64,11 +56,12 @@ export default class SignUpForm extends Component {
 						name='confirmPassword'
 						id='confirmPassword'
 						placeholder='password'
-						value={this.state.confirmPassword}
+						value={this.props.confirmPassword}
+						onChange={this.props.change}
 						className='form-control form-control-lg'
 					/>
 				</div>
-				<SignUpButton signUp={this.submitHandler.bind(this, this.state)} />
+				<SignUpButton />
 			</form>
 		);
 	}

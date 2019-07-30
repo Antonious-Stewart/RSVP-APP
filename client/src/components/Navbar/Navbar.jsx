@@ -5,8 +5,11 @@ import { Link } from 'react-router-dom';
 import * as Bootstrap from 'reactstrap';
 
 export class Navbar extends Component {
+	state = {
+		visible: false
+	};
 	static propTypes = {
-		auth: PropTypes.number
+		auth: PropTypes.bool
 	};
 	render() {
 		return (
@@ -29,9 +32,26 @@ export class Navbar extends Component {
 					) : (
 						<Fragment>
 							<li className='nav-item'>
-								<Link to='/Logout' className='nav-link'>
-									Logout
-								</Link>
+								<span className='nav-link text-primary '>Logout</span>
+								<span
+									onClick={() =>
+										this.setState({ visible: !this.state.visible })
+									}>
+									c
+								</span>
+								{this.state.visible && (
+									<div>
+										<span className='nav-link' onClick={this.logoutHandler}>
+											Logout
+										</span>
+										<span
+											to='/LogoutAll'
+											className='nav-link'
+											onClick={this.logoutAllHandler}>
+											LogoutAll
+										</span>
+									</div>
+								)}
 							</li>
 							<li className='nav-item'>
 								<Link to='/Create_Event' className='nav-link'>
