@@ -1,8 +1,8 @@
+import * as actionTypes from '../../actions/Auth/types';
 //intial state
 const intialState = {
 	isAuth: null,
 	loading: true,
-	token: '',
 	user: null
 };
 
@@ -17,6 +17,35 @@ const intialState = {
 const authReducer = (state = intialState, action) => {
 	const { type, payload } = action;
 	switch (type) {
+		case actionTypes.LOAD_USER:
+			return {
+				...state,
+				isAuth: true,
+				loading: false,
+				user: payload
+			};
+		case actionTypes.AUTH_ERROR:
+		case actionTypes.SIGNUP_FAIL:
+		case actionTypes.LOGIN_FAIL:
+			localStorage.removeItem('token');
+			return {
+				...state,
+				isAuth: false,
+				loading: false,
+				user: null
+			};
+		case actionTypes.SIGNUP_SUCCESS:
+		case actionTypes.LOGIN_SUCCESS:
+			localStorage.setItem(
+				'token',
+				payload.tokens[payload.tokens.length - 1].token
+			);
+			return {
+				...state,
+				isAuth: true,
+				loading: false,
+				user: { ...payload }
+			};
 		default:
 			return {
 				...state
