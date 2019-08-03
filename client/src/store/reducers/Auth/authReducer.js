@@ -27,6 +27,8 @@ const authReducer = (state = intialState, action) => {
 		case actionTypes.AUTH_ERROR:
 		case actionTypes.SIGNUP_FAIL:
 		case actionTypes.LOGIN_FAIL:
+		case actionTypes.LOGOUT:
+		case actionTypes.LOGOUT_ALL:
 			localStorage.removeItem('token');
 			return {
 				...state,
