@@ -78,3 +78,35 @@ export const login = data => async dispatch => {
 		dispatch(loginFail());
 	}
 };
+//logout
+const logoutSession = () => {
+	return {
+		type: actionTypes.LOGOUT
+	};
+};
+// logout action creator
+//make call to endpoint to logout of the current session
+export const logout = () => async dispatch => {
+	try {
+		await axios.post('/api/user/logout');
+		dispatch(logoutSession());
+	} catch (err) {
+		console.error(err);
+	}
+};
+//logout
+const logoutAllSessions = () => {
+	return {
+		type: actionTypes.LOGOUT_ALL
+	};
+};
+//logout All action creator
+// make call to endpoint to logout of all sessions
+export const logoutAll = () => async dispatch => {
+	try {
+		await axios.post('/api/user/logoutall');
+		dispatch(logoutAllSessions());
+	} catch (err) {
+		console.error(err);
+	}
+};
