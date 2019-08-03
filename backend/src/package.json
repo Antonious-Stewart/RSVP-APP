@@ -18,7 +18,8 @@
 		"bcryptjs": "^2.4.3",
 		"concurrently": "^4.1.1",
 		"env-cmd": "^9.0.3",
-		"jest": "^24.8.0"
+		"jest": "^24.8.0",
+		"supertest": "^4.0.2"
 	},
 	"dependencies": {
 		"nodemon": "^1.19.1",
