@@ -3,13 +3,16 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as Bootstrap from 'reactstrap';
+import * as actionCreators from '../../store/actions/Auth/creators';
 
 export class Navbar extends Component {
 	state = {
 		visible: false
 	};
 	static propTypes = {
-		auth: PropTypes.bool
+		auth: PropTypes.bool,
+		logout: PropTypes.func,
+		logoutAll: PropTypes.func
 	};
 	render() {
 		return (
@@ -33,21 +36,16 @@ export class Navbar extends Component {
 						<Fragment>
 							<li className='nav-item'>
 								<span className='nav-link text-primary '>Logout</span>
-								<span
-									onClick={() =>
-										this.setState({ visible: !this.state.visible })
-									}>
-									c
-								</span>
+
 								{this.state.visible && (
 									<div>
-										<span className='nav-link' onClick={this.logoutHandler}>
+										<span className='nav-link' onClick={this.props.logout}>
 											Logout
 										</span>
 										<span
 											to='/LogoutAll'
 											className='nav-link'
-											onClick={this.logoutAllHandler}>
+											onClick={this.props.logoutAll}>
 											LogoutAll
 										</span>
 									</div>
@@ -75,7 +73,10 @@ const mapStateToProps = state => ({
 	auth: state.auth.isAuth
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = dispatch => ({
+	logout: () => dispatch(actionCreators.logout()),
+	logoutAll: () => dispatch(actionCreators.logoutAll())
+});
 
 export default connect(
 	mapStateToProps,
