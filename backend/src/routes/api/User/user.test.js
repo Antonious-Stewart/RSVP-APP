@@ -4,7 +4,7 @@ const request = require('supertest');
 
 describe('User API Route', () => {
 	beforeEach(() => {
-		jest.setTimeout(18000);
+		jest.setTimeout(8000);
 	});
 	test('create new user', async () => {
 		await request(app)
