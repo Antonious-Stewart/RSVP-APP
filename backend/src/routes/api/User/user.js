@@ -56,7 +56,7 @@ router.post('/logoutall', auth, async (req, res) => {
 	}
 });
 //get user profile
-router.get('/profile', auth, async (req, res) => {
+router.get('/profile/', auth, async (req, res) => {
 	try {
 		res.status(200).send(req.user);
 	} catch (err) {

@@ -11,7 +11,6 @@ const EventsSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 		trim: true,
-		uppercase: true,
 		maxlength: 50
 	},
 	description: {
@@ -31,15 +30,7 @@ const EventsSchema = new mongoose.Schema({
 		required: true
 	}
 });
-EventsSchema.pre('remove', async function(next) {
-	const event = this;
-	//find all users with the current event id
-	const users = await User.find({ attending: event._id });
-	//iterate through those users and remove any rsvp associated with it
-	users.attending = users.attending.filter(rsvp => rsvp !== event.id);
-	await user.save();
-	next();
-});
+
 const Event = mongoose.model('Event', EventsSchema);
 
 module.exports = Event;

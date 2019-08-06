@@ -12,7 +12,8 @@ const userSchema = new mongoose.Schema({
 	username: {
 		type: String,
 		required: true,
-		trim: true
+		trim: true,
+		unique: true
 	},
 	email: {
 		type: String,
@@ -41,16 +42,7 @@ const userSchema = new mongoose.Schema({
 			}
 		}
 	},
-	attending: [Object],
-	hostedEvents: [
-		{
-			events: {
-				type: mongoose.Schema.Types.ObjectId,
-				ref: 'Event',
-				required: true
-			}
-		}
-	],
+	attending: [String],
 	tokens: [
 		{
 			token: {

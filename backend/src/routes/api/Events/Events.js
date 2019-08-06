@@ -19,15 +19,17 @@ router.get('/', async (req, res) => {
 router.post('/create', auth, async (req, res) => {
 	try {
 		//create an event with the users id and email
-		const events = await new Event({
+		const event = await new Event({
 			...req.body,
 			organizer: req.user._id,
 			rsvps: req.user.email
 		}).save();
-		if (!events) {
+		if (!event) {
 			return res.status(400).send('Bad Request');
 		}
-		res.status(201).send(events);
+		req.user.attending = [...req.user.attending, event.title];
+		await req.user.save();
+		res.status(201).send(event);
 	} catch (err) {
 		console.log(err);
 		res.status(500).send(err);
@@ -37,11 +39,10 @@ router.post('/create', auth, async (req, res) => {
 router.get('/:id', auth, async (req, res) => {
 	try {
 		const event = await Event.findOne({
-			organizer: req.user._id,
 			_id: req.params.id
 		});
 		if (!event) {
-			return res.status(404).send(' not found');
+			return res.status(404).send('not found');
 		}
 		await event.populate('organizer').execPopulate();
 		await event.save();
@@ -86,45 +87,41 @@ router.post('/rsvp/:id', auth, async (req, res) => {
 			return res.status(404).send('not found');
 		}
 		//if user has already rsvp cancel request
-		if (event.rsvps.includes(req.params.id)) {
+		if (event.rsvps.includes(req.user.email)) {
 			return res.status(400).send('bad request');
 		}
-		req.user.attending = [...req.user.attending, req.params.id];
-		res.status(201).send(req.user);
+		// concat the new rsvp to the existing array
+		event.rsvps = [...event.rsvps, req.user.email];
+		await event.save();
+		// add event to users events they are attending
+		req.user.attending = [...req.user.attending, event.title];
+		await req.user.save();
+		res.status(201).send(event);
 	} catch (err) {
 		console.error(err);
 		res.status(500).send(err);
 	}
 });
 //users can cancel the rsvp
-router.post(
-	`/rsvp/${encodeURI('cancel rsvp')}/:eventId`,
-	auth,
-	async (req, res) => {
-		//remove match the event with the matching from req.user.attending
-		try {
-			req.user.attending = req.user.attending.filter(
-				rsvp => rsvp.attending !== req.params.eventId
-			);
-			req.user.save();
-		} catch (err) {
-			res.status(500).send(err);
-		}
-	}
-);
-//the organizer can delete the event
-router.delete('/:id', auth, async (req, res) => {
+router.post(`/${encodeURI('cancel rsvp')}/:id`, auth, async (req, res) => {
+	//remove match the event with the matching from req.user.attending
 	try {
-		const event = await Event.findOne({
-			'tokens.token': req.token,
-			organizer: req.user._id
-		});
-		if (!event) {
-			res.status(403).send('Not authorized to make this action');
+		const event = await Event.findOne({ _id: req.params.id });
+		// ensure the user has rsvp'd to the event
+		if (event.rsvps.includes(req.user.email)) {
+			// remove user email
+			event.rsvps = event.rsvps.filter(rsvp => rsvp !== req.user.email);
+			await event.save();
+			// remove the event from the users attending list
+			req.user.attending = req.user.attending.filter(
+				rsvp => rsvp !== event.title
+			);
+			await req.user.save();
+			return res.status(200).send(req.user);
 		}
-		await event.remove();
-		res.status(202).send(event);
+		res.status(400).send('bad request');
 	} catch (err) {
+		console.error(err);
 		res.status(500).send(err);
 	}
 });

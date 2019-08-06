@@ -6,7 +6,10 @@
 	"scripts": {
 		"test": "env-cmd --file ../config/test.env jest --watchAll",
 		"server": "env-cmd --file ../config/dev.env nodemon server.js",
-		"start": "node server.js"
+		"start": "node server.js",
+		"client-install": "npm install --prefix ../../client/",
+		"client": "npm start --prefix ../../client/",
+		"dev": "concurrently \"npm run server\" \"npm run client\" "
 	},
 	"jest": {
 		"testEnvironment": "node"
