@@ -3,26 +3,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-export const PrivateRoute = ({
-	component: Component,
-	auth: { isAuth, loading },
-	...rest
-}) => (
+export const PrivateRoute = ({ component: Component, isAuth, ...rest }) => (
 	<Route
 		{...rest}
 		render={props =>
-			!isAuth && !loading ? <Redirect to='/login' /> : <Component {...props} />
+			isAuth ? <Component {...props} /> : <Redirect to='/Login' />
 		}
 	/>
 );
 
 PrivateRoute.propTypes = {
-	isAuth: PropTypes.bool,
-	loading: PropTypes.bool
+	isAuth: PropTypes.bool
 };
 
 const mapStateToProps = state => ({
-	auth: state.auth
+	isAuth: state.auth.isAuth
 });
 
 export default connect(mapStateToProps)(PrivateRoute);

@@ -20,6 +20,11 @@ export default class App extends Component {
 					<Navbar />
 					<PublicRoute exact path='/' component={LandingPage} />
 					<PublicRoute path='/Login' component={Login} />
+					<Route path='/About' />
+					<PrivateRoute path='/Home' component={Login} />
+					<PrivateRoute path='/Create_Event' />
+					<PrivateRoute path='/Logout' />
+					<PrivateRoute path='/Profile' />
 				</Router>
 			</Provider>
 		);

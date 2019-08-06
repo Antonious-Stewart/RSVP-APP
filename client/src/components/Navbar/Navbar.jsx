@@ -18,38 +18,15 @@ export class Navbar extends Component {
 		return (
 			<Bootstrap.Navbar data-test='app-Navbar-Component' className='bg-success'>
 				<Bootstrap.Nav>
-					<Link to='/Home' className='navbar navbar-band text-white'>
-						Brand
-					</Link>
-					<li className='nav-item'>
-						<Link to='/About' className='nav-link'>
-							About
-						</Link>
-					</li>
-					{!this.props.auth ? (
-						<li className='nav-item'>
-							<Link to='/Login' className='nav-link'>
-								Login
-							</Link>
-						</li>
-					) : (
+					{this.props.auth ? (
 						<Fragment>
+							<Link to='/Home' className=' navbar-brand'>
+								{this.props.username}
+							</Link>
 							<li className='nav-item'>
-								<span className='nav-link text-primary '>Logout</span>
-
-								{this.state.visible && (
-									<div>
-										<span className='nav-link' onClick={this.props.logout}>
-											Logout
-										</span>
-										<span
-											to='/LogoutAll'
-											className='nav-link'
-											onClick={this.props.logoutAll}>
-											LogoutAll
-										</span>
-									</div>
-								)}
+								<Link to='/Logout' className='nav-link'>
+									Logout
+								</Link>
 							</li>
 							<li className='nav-item'>
 								<Link to='/Create_Event' className='nav-link'>
@@ -57,8 +34,24 @@ export class Navbar extends Component {
 								</Link>
 							</li>
 							<li className='nav-item'>
-								<Link to='/Profile' className='nav-link'>
+								<Link className='nav-link' to='/Profile'>
 									Profile
+								</Link>
+							</li>
+						</Fragment>
+					) : (
+						<Fragment>
+							<Link to='/' className='navbar-brand'>
+								ReserveIt
+							</Link>
+							<li className='nav-item'>
+								<Link to='/Login' className='nav-link'>
+									Login
+								</Link>
+							</li>
+							<li className='nav-item'>
+								<Link to='/About' className='nav-link'>
+									About
 								</Link>
 							</li>
 						</Fragment>
