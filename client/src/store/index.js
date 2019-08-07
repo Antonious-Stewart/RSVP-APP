@@ -2,10 +2,12 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import authReducer from './reducers/Auth/authReducer';
+import eventsReducer from './reducers/Events/eventsReducer';
 
 //combine all reducers into one root reducer
 const rootReducer = combineReducers({
-	auth: authReducer
+	auth: authReducer,
+	event: eventsReducer
 });
 
 //middleware
