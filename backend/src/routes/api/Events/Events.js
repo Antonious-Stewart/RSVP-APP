@@ -3,9 +3,9 @@ const router = require('express').Router();
 const auth = require('../../../middleware/auth');
 
 //get all events
-router.get('/', async (req, res) => {
+router.get('/', auth, async (req, res) => {
 	try {
-		const events = await Event.find({});
+		const events = await Event.find({ rsvps: req.user.email });
 		if (events.length === 0) {
 			return res.status(404).send('No Events at this time come back again');
 		}
