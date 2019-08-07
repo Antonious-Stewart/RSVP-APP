@@ -1,26 +1,38 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Events from './Events';
+import * as actionCreators from '../../store/actions/Events/creators';
 
 export class Event extends Component {
-	static propTypes = {
-		prop: PropTypes
+	state = {
+		redirect: false,
+		id: ''
 	};
-
+	cancelHandler = id => {
+		return this.props.cancel(id);
+	};
+	viewHandler = id => {
+		this.props.viewEvent(id);
+		this.setState({ redirect: true, id });
+	};
 	render() {
+		if (this.props.loading) {
+			this.props.getEvents();
+		}
 		return (
 			<div>
-				{!this.props.loading &&
-					this.props.events.map(event => (
-						<Events
-							view={this.ViewEventHandler}
-							key={event._id}
-							organizer={event.organizer}
-							desc={event.desctiption}
-							title={event.title}
-						/>
-					))}
+				{this.state.redirect && <Redirect to={`/event/${this.state.id}`} />}
+				{this.props.events.map(event => (
+					<Events
+						view={this.viewHandler.bind(this, event._id)}
+						key={event._id}
+						title={event.title}
+						desc={event.description}
+						cancel={this.cancelHandler.bind(this, event._id)}
+						attending={event.rsvps.length}
+					/>
+				))}
 			</div>
 		);
 	}
@@ -32,7 +44,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	view: () => dispatch()
+	getEvents: () => dispatch(actionCreators.getEvents()),
+	cancel: id => dispatch(actionCreators.cancelRsvp(id)),
+	viewEvent: id => dispatch(actionCreators.viewEvent(id))
 });
 
 export default connect(
