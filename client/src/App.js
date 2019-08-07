@@ -8,7 +8,9 @@ import { loadUser } from './store/actions/Auth/creators';
 import Login from './containers/Login/Login';
 import PublicRoute from './Routing/PublicRoute';
 import PrivateRoute from './Routing/PrivateRoute';
-
+import Event from './components/Events/Event';
+import CreateEvent from './components/Forms/CreateEvent';
+import SelectedEvent from './components/Events/SelectedEvent';
 export default class App extends Component {
 	render() {
 		if (localStorage.token) {
@@ -21,8 +23,9 @@ export default class App extends Component {
 					<PublicRoute exact path='/' component={LandingPage} />
 					<PublicRoute path='/Login' component={Login} />
 					<Route path='/About' />
-					<PrivateRoute path='/Home' component={Login} />
-					<PrivateRoute path='/Create_Event' />
+					<PrivateRoute path='/Home' component={Event} />
+					<PrivateRoute path='/Create_Event' component={CreateEvent} />
+					<PrivateRoute exact path='/event/:id' component={SelectedEvent} />
 					<PrivateRoute path='/Logout' />
 					<PrivateRoute path='/Profile' />
 				</Router>
