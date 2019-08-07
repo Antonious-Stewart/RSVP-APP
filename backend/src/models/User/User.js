@@ -12,7 +12,8 @@ const userSchema = new mongoose.Schema({
 	username: {
 		type: String,
 		required: true,
-		trim: true
+		trim: true,
+		unique: true
 	},
 	email: {
 		type: String,
@@ -41,16 +42,7 @@ const userSchema = new mongoose.Schema({
 			}
 		}
 	},
-	attending: [Object],
-	hostedEvents: [
-		{
-			events: {
-				type: mongoose.Schema.Types.ObjectId,
-				ref: 'Event',
-				required: true
-			}
-		}
-	],
+	attending: [String],
 	tokens: [
 		{
 			token: {
@@ -64,7 +56,7 @@ const userSchema = new mongoose.Schema({
 // hash user password before saving to database
 userSchema.pre('save', async function(next) {
 	const user = this;
-	if (user.isModified) {
+	if (user.isModified('password')) {
 		user.password = await bcrypt.hash(user.password, 8);
 	}
 	next();
@@ -77,12 +69,11 @@ userSchema.methods.generateAuthToken = async function() {
 	await user.save();
 	return token;
 };
-// hide token and password from users
+// hide password from users
 userSchema.methods.toJSON = function() {
 	const user = this;
 	const userObject = user.toObject();
 	delete userObject.password;
-	delete userObject.tokens;
 
 	return userObject;
 };
@@ -93,7 +84,7 @@ userSchema.statics.findByUserCredentials = async (email, password) => {
 		if (!user) {
 			throw new Error();
 		}
-		const isMatch = bcrypt.compareSync(password, user.password);
+		const isMatch = await bcrypt.compare(password, user.password);
 		if (!isMatch) {
 			throw new Error();
 		}

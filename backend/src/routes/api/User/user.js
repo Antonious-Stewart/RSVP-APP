@@ -33,17 +33,20 @@ router.post('/login', async (req, res) => {
 });
 //signout user
 router.post('/logout', auth, async (req, res) => {
+	// remove the token the user is currently using from the session
 	try {
 		req.user.tokens = req.user.tokens.filter(
 			token => token.token !== req.token
 		);
 		await req.user.save();
+		res.status(200).send(req.user);
 	} catch (err) {
 		res.status(500).send(err);
 	}
 });
 //signout all users
 router.post('/logoutall', auth, async (req, res) => {
+	//remove all tokens from the user document
 	try {
 		req.user.tokens = [];
 		await req.user.save();
@@ -53,7 +56,7 @@ router.post('/logoutall', auth, async (req, res) => {
 	}
 });
 //get user profile
-router.get('/profile', auth, async (req, res) => {
+router.get('/profile/', auth, async (req, res) => {
 	try {
 		res.status(200).send(req.user);
 	} catch (err) {

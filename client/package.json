@@ -6,8 +6,10 @@
 		"axios": "^0.19.0",
 		"bootstrap": "^4.3.1",
 		"firebase": "^6.3.1",
+		"moment": "^2.24.0",
 		"react": "^16.8.6",
 		"react-dom": "^16.8.6",
+		"react-moment": "^0.9.2",
 		"react-redux": "^7.1.0",
 		"react-router-dom": "^5.0.1",
 		"react-scripts": "3.0.1",
@@ -16,6 +18,7 @@
 		"redux-devtools-extension": "^2.13.8",
 		"redux-thunk": "^2.3.0"
 	},
+	"proxy": "http://localhost:5000",
 	"scripts": {
 		"start": "react-scripts start",
 		"build": "react-scripts build",
@@ -35,7 +38,13 @@
 			"last 1 chrome version",
 			"last 1 firefox version",
 			"last 1 safari version"
-		],
-		"proxy": "http://localhost:5000/api"
+		]
+	},
+	"devDependencies": {
+		"check-prop-types": "^1.1.2",
+		"enzyme": "^3.10.0",
+		"enzyme-adapter-react-16": "^1.14.0",
+		"react-test-renderer": "^16.8.6",
+		"redux-mock-store": "^1.5.3"
 	}
 }
