@@ -8,22 +8,22 @@ export default class Events extends Component {
 			organizer: PropTypes.string,
 			title: PropTypes.string,
 			desc: PropTypes.string,
-			view: PropTypes.func
+			view: PropTypes.func,
+			attending: PropTypes.number
 		};
 
 		return (
-			<div onClick={this.props.view}>
+			<div>
 				<h3>{this.props.title}</h3>
 				<img src={this.props.img} alt='img of event' />
 				<p>
 					<strong>Description</strong>:{this.props.desc}
 				</p>
 				<div>
-					<strong>Attending</strong>:
+					<strong>Attending</strong>:{this.props.attending}
 				</div>
-				<footer>
-					<strong>Organizer</strong>:{this.props.organizer}
-				</footer>
+				<button onClick={this.props.view}>View</button>
+				<button onClick={this.props.cancel}>Cancel Rsvp</button>
 			</div>
 		);
 	}
