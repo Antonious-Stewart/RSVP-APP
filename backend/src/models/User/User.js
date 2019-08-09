@@ -42,6 +42,25 @@ const userSchema = new mongoose.Schema({
 			}
 		}
 	},
+	location: {
+		type: String,
+		trim: true
+	},
+	profileImg: {
+		type: String,
+		trim: true,
+		validate(value) {
+			if (
+				!value.endsWith('jpeg') ||
+				!value.endsWith('png') ||
+				!value.endsWith('svg') ||
+				!value.endsWith('gif') ||
+				!value.endsWith('jpg')
+			) {
+				throw new Error();
+			}
+		}
+	},
 	attending: [String],
 	tokens: [
 		{
