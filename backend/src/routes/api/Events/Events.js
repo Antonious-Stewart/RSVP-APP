@@ -56,7 +56,7 @@ router.patch('/:id/edit', auth, async (req, res) => {
 	// turn req.body into an array of its keys
 	const updates = Object.keys(req.body);
 	// updates that are allowd to be made
-	const allowedUpdate = ['description', 'title', 'date'];
+	const allowedUpdate = ['description', 'title', 'date', 'location', 'img'];
 	// check elements in the updates array and see if every elements matches
 	// the allowed updates
 	const isValidUpdate = updates.every(update => allowedUpdate.includes(update));
