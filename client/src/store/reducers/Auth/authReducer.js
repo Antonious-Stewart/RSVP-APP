@@ -3,7 +3,8 @@ import * as actionTypes from '../../actions/Auth/types';
 const intialState = {
 	isAuth: null,
 	loading: true,
-	user: null
+	user: null,
+	edit: false
 };
 
 //auth reducer
@@ -29,6 +30,7 @@ const authReducer = (state = intialState, action) => {
 		case actionTypes.LOGIN_FAIL:
 		case actionTypes.LOGOUT:
 		case actionTypes.LOGOUT_ALL:
+		case actionTypes.DELETE_PROFILE:
 			localStorage.removeItem('token');
 			return {
 				...state,
@@ -47,6 +49,17 @@ const authReducer = (state = intialState, action) => {
 				isAuth: true,
 				loading: false,
 				user: { ...payload }
+			};
+		case actionTypes.SAVE_PROFILE_SUCCESS:
+			return {
+				...state,
+				edit: false,
+				user: { ...payload }
+			};
+		case actionTypes.SAVE_PROFILE_FAIL:
+			return {
+				...state,
+				edit: false
 			};
 		default:
 			return {

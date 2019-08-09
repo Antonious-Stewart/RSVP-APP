@@ -22,7 +22,7 @@ export default class LoginForm extends Component {
 					className='form-control form-control-lg'
 				/>
 				<input
-					type='text'
+					type='password'
 					name='password'
 					id='password'
 					placeholder='password'

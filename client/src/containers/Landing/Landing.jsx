@@ -10,7 +10,8 @@ export class Landing extends Component {
 		email: '',
 		password: '',
 		confirmEmail: '',
-		confirmPassword: ''
+		confirmPassword: '',
+		location: ''
 	};
 	static propTypes = {
 		submit: PropTypes.func
@@ -31,7 +32,8 @@ export class Landing extends Component {
 				password: '',
 				email: '',
 				confirmEmail: '',
-				confirmPassword: ''
+				confirmPassword: '',
+				location: ''
 			});
 		} else {
 			evt.preventDefault();
@@ -39,29 +41,36 @@ export class Landing extends Component {
 		}
 	};
 	render() {
+		const {
+			username,
+			confirmEmail,
+			confirmPassword,
+			password,
+			email,
+			location
+		} = this.state;
 		return (
 			<div>
 				<SignUpForm
 					submit={this.submitHandler.bind(this, this.state)}
 					change={this.changeHandler}
-					email={this.state.email}
-					password={this.state.password}
-					username={this.state.username}
-					confirmEmail={this.state.confirmEmail}
-					confirmPassword={this.state.confirmPassword}
+					email={email}
+					password={password}
+					username={username}
+					confirmEmail={confirmEmail}
+					confirmPassword={confirmPassword}
+					location={location}
 				/>
 			</div>
 		);
 	}
 }
 
-const mapStateToProps = state => ({});
-
 const mapDispatchToProps = dispatch => ({
 	submitForm: result => dispatch(actionCreators.SignUp(result))
 });
 
 export default connect(
-	mapStateToProps,
+	null,
 	mapDispatchToProps
 )(Landing);

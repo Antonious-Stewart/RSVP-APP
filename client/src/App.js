@@ -11,6 +11,10 @@ import PrivateRoute from './Routing/PrivateRoute';
 import Event from './components/Events/Event';
 import CreateEvent from './components/Forms/CreateEvent';
 import SelectedEvent from './components/Events/SelectedEvent';
+import Profile from './components/Profile/Profile';
+import EditProfile from './components/Profile/EditProfile';
+import ChangePassword from './components/Forms/ChangePassword';
+
 export default class App extends Component {
 	render() {
 		if (localStorage.token) {
@@ -27,7 +31,9 @@ export default class App extends Component {
 					<PrivateRoute path='/Create_Event' component={CreateEvent} />
 					<PrivateRoute exact path='/event/:id' component={SelectedEvent} />
 					<PrivateRoute path='/Logout' />
-					<PrivateRoute path='/Profile' />
+					<PrivateRoute exact path='/Profile' component={Profile} />
+					<PrivateRoute path='/Profile/:id/edit' component={EditProfile} />
+					<PrivateRoute path='/Change_Password' component={ChangePassword} />
 				</Router>
 			</Provider>
 		);

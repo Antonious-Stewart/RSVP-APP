@@ -11,16 +11,16 @@ export default class Events extends Component {
 			view: PropTypes.func,
 			attending: PropTypes.number
 		};
-
+		const { title, desc, date } = this.props;
 		return (
 			<div>
-				<h3>{this.props.title}</h3>
+				<h3>{title}</h3>
 				<img src={this.props.img} alt='img of event' />
 				<p>
-					<strong>Description</strong>:{this.props.desc}
+					<strong>Description</strong>:{desc}
 				</p>
 				<div>
-					<strong>Attending</strong>:{this.props.attending}
+					<strong>Date</strong>:{date.replace('T00:00:00.000Z', '')}
 				</div>
 				<button onClick={this.props.view}>View</button>
 				<button onClick={this.props.cancel}>Cancel Rsvp</button>

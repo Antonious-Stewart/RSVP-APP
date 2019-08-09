@@ -30,7 +30,7 @@ export class Event extends Component {
 						title={event.title}
 						desc={event.description}
 						cancel={this.cancelHandler.bind(this, event._id)}
-						attending={event.rsvps.length}
+						date={event.date}
 					/>
 				))}
 			</div>

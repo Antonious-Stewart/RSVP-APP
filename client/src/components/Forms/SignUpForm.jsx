@@ -9,7 +9,8 @@ export default class SignUpForm extends Component {
 		password: PropTypes.string.isRequired,
 		username: PropTypes.string.isRequired,
 		confirmEmail: PropTypes.string.isRequired,
-		confirmPassword: PropTypes.string.isRequired
+		confirmPassword: PropTypes.string.isRequired,
+		location: PropTypes.string
 	};
 	render() {
 		return (
@@ -57,6 +58,15 @@ export default class SignUpForm extends Component {
 						id='confirmPassword'
 						placeholder='password'
 						value={this.props.confirmPassword}
+						onChange={this.props.change}
+						className='form-control form-control-lg'
+					/>
+					<input
+						type='text'
+						name='location'
+						id='location'
+						placeholder='Location'
+						value={this.props.location}
 						onChange={this.props.change}
 						className='form-control form-control-lg'
 					/>
