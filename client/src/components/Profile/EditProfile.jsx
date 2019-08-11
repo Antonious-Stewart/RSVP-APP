@@ -8,8 +8,8 @@ export class EditProfile extends Component {
 	state = {
 		username: this.props.user.username,
 		email: this.props.user.email,
-		newPassword: '',
-		password: '',
+		location: this.props.user.location,
+		profileImg: '',
 		redirect: false
 	};
 	static propTypes = {
@@ -57,6 +57,14 @@ export class EditProfile extends Component {
 							placeholder='@email.com'
 							onChange={this.changeHandler}
 							value={this.state.email}
+						/>
+						<input type='file' name='profileImg' id='profileImg' />
+						<input
+							type='text'
+							name='loction'
+							id='location'
+							placeholder='Loaction'
+							value={this.state.location}
 						/>
 						<button type='submit'>Save</button>
 					</div>

@@ -9,15 +9,8 @@ export class Event extends Component {
 		redirect: false,
 		id: ''
 	};
-	cancelHandler = id => {
-		return this.props.cancel(id);
-	};
-	viewHandler = id => {
-		this.props.viewEvent(id);
-		this.setState({ redirect: true, id });
-	};
 	render() {
-		if (this.props.loading) {
+		if (this.props.fetchUserEvents) {
 			this.props.getEvents();
 		}
 		return (
@@ -25,11 +18,16 @@ export class Event extends Component {
 				{this.state.redirect && <Redirect to={`/event/${this.state.id}`} />}
 				{this.props.events.map(event => (
 					<Events
-						view={this.viewHandler.bind(this, event._id)}
+						view={() => {
+							this.props.viewEvent(event._id);
+							this.setState({ redirect: true, id: event._id });
+						}}
+						location={event.location}
 						key={event._id}
 						title={event.title}
+						attending={event.rsvps.includes(this.props.user.email) || false}
 						desc={event.description}
-						cancel={this.cancelHandler.bind(this, event._id)}
+						cancel={() => this.props.cancel(event._id)}
 						date={event.date}
 					/>
 				))}
@@ -39,7 +37,8 @@ export class Event extends Component {
 }
 
 const mapStateToProps = state => ({
-	loading: state.event.loading,
+	user: state.auth.user,
+	fetchUserEvents: state.event.fetchUserEvents,
 	events: state.event.events
 });
 

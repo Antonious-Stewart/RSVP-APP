@@ -1,13 +1,15 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import * as Bootstrap from 'reactstrap';
-import * as actionCreators from '../../store/actions/Auth/creators';
+import * as authActionCreators from '../../store/actions/Auth/creators';
+import * as eventActionCreators from '../../store/actions/Events/creators';
 
 export class Navbar extends Component {
 	state = {
-		visible: false
+		search: '',
+		redirect: false
 	};
 	static propTypes = {
 		auth: PropTypes.bool,
@@ -17,6 +19,7 @@ export class Navbar extends Component {
 	render() {
 		return (
 			<Bootstrap.Navbar data-test='app-Navbar-Component' className='bg-success'>
+				{this.state.redirect && <Redirect to='/Events' />}
 				<Bootstrap.Nav>
 					{this.props.auth ? (
 						<Fragment>
@@ -24,7 +27,10 @@ export class Navbar extends Component {
 								{this.props.username}
 							</Link>
 							<li className='nav-item'>
-								<Link to='/Logout' className='nav-link'>
+								<Link
+									to='/Login'
+									className='nav-link'
+									onClick={() => this.props.logout()}>
 									Logout
 								</Link>
 							</li>
@@ -36,6 +42,11 @@ export class Navbar extends Component {
 							<li className='nav-item'>
 								<Link className='nav-link' to='/Profile'>
 									Profile
+								</Link>
+							</li>
+							<li className='nav-item'>
+								<Link to='/Events' className='nav-link'>
+									Events
 								</Link>
 							</li>
 						</Fragment>
@@ -67,8 +78,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	logout: () => dispatch(actionCreators.logout()),
-	logoutAll: () => dispatch(actionCreators.logoutAll())
+	logout: () => dispatch(authActionCreators.logout()),
+	search: query => dispatch(eventActionCreators.search(query))
 });
 
 export default connect(

@@ -17,6 +17,9 @@ export class Profile extends Component {
 				<div>
 					<button onClick={() => this.setState({ edit: true })}>Edit</button>
 					<button onClick={id => this.props.delete(_id)}>Delete</button>
+					<button onClick={() => this.props.logoutAll()}>
+						Logout All Sessions
+					</button>
 					<h2>{username}</h2>
 					<p>
 						<strong>Location:</strong>
@@ -48,7 +51,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	delete: id => dispatch(actionCreators.deleteUserProfile(id))
+	delete: id => dispatch(actionCreators.deleteUserProfile(id)),
+	logoutAll: () => dispatch(actionCreators.logoutAll())
 });
 
 export default connect(

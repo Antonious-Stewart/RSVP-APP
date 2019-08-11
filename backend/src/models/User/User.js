@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const validator = require('validator');
+const Event = require('../Events/Events');
 
 // userschema to have fields:
 //email password username to be strings
@@ -112,7 +113,12 @@ userSchema.statics.findByUserCredentials = async (email, password) => {
 		console.error('Unable to login');
 	}
 };
-
+//delete user and all events the user is organizing
+userSchema.pre('remove', async function(next) {
+	const user = this;
+	await Event.deleteMany({ organizer: user._id });
+	next();
+});
 const User = mongoose.model('User', userSchema);
 
 module.exports = User;
