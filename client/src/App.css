@@ -1,0 +1,23 @@
+.spinner-grow {
+  height: 25rem;
+  width: 25rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation-name: spinner-grow
+}
+
+header {
+  background: url('./assets/maria-teneva-rHlaMHAzfYM-unsplash.jpg') center /cover no-repeat;
+}
+
+@keyframes spinner-grow {
+  0% {
+    transform: translate(-50%, -50%) scale(0)
+  }
+
+  50% {
+    opacity: 1;
+  }
+}

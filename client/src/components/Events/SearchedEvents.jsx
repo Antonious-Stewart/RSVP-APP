@@ -4,31 +4,57 @@ import { connect } from 'react-redux';
 import Events from './Events';
 import { Redirect } from 'react-router-dom';
 import * as actionCreators from '../../store/actions/Events/creators';
-
+import Radium from 'radium';
 export class SearchedEvents extends Component {
+	constructor(props) {
+		super(props);
+		this.searchRef = React.createRef();
+	}
 	state = {
 		query: '',
 		redirect: false,
 		id: ''
 	};
 	static propTypes = {
-		search: PropTypes.bool.isRequired,
+		search: PropTypes.bool,
 		searchedEvents: PropTypes.array.isRequired
 	};
+	componentDidMount() {
+		this.searchRef.current.focus();
+	}
 
 	render() {
+		const headerStyles = {
+			height: '94.7vh',
+			width: '100%',
+			display: 'flex',
+			justifyContent: 'center',
+			alignItems: 'center'
+		};
+		const searchStyles = {
+			borderRadius: '2rem',
+			border: 0,
+			padding: '1rem',
+			width: '30rem',
+			':focus': {
+				outline: 0,
+				border: 0
+			}
+		};
 		return (
 			<div>
 				{this.state.redirect && <Redirect to={`/event/${this.state.id}`} />}
-				<header>
+				<header style={headerStyles}>
 					<form
 						method='get'
 						onSubmit={async evt => {
 							evt.preventDefault();
 							this.props.searchQuery(this.state.query);
-							this.setState({ query: '', redirect: true });
+							this.setState({ query: '' });
 						}}>
 						<input
+							style={searchStyles}
+							ref={this.searchRef}
 							type='text'
 							name='query'
 							id='query'
@@ -76,4 +102,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(SearchedEvents);
+)(Radium(SearchedEvents));

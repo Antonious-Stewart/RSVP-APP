@@ -12,9 +12,10 @@ import Event from './components/Events/Event';
 import CreateEvent from './components/Forms/CreateEvent';
 import SelectedEvent from './components/Events/SelectedEvent';
 import Profile from './components/Profile/Profile';
-import EditProfile from './components/Profile/EditProfile';
 import ChangePassword from './components/Forms/ChangePassword';
 import SearchedEvents from './components/Events/SearchedEvents';
+import { StyleRoot } from 'radium';
+import './App.css';
 
 export default class App extends Component {
 	render() {
@@ -23,28 +24,25 @@ export default class App extends Component {
 		}
 		return (
 			<Provider store={store}>
-				<Router>
-					<Navbar />
-					<PublicRoute exact path='/' component={LandingPage} />
-					<PublicRoute path='/Login' component={Login} />
-					<Route exact path='/About' />
-					<PrivateRoute exact path='/Home' component={Event} />
-					<PrivateRoute exact path='/Create_Event' component={CreateEvent} />
-					<PrivateRoute exact path='/Events' component={SearchedEvents} />
-					<PrivateRoute exact path='/event/:id' component={SelectedEvent} />
-					<PrivateRoute path='/Logout' />
-					<PrivateRoute exact path='/Profile' component={Profile} />
-					<PrivateRoute
-						exact
-						path='/Profile/:id/edit'
-						component={EditProfile}
-					/>
-					<PrivateRoute
-						exact
-						path='/Change_Password'
-						component={ChangePassword}
-					/>
-				</Router>
+				<StyleRoot>
+					<Router>
+						<Navbar />
+						<PublicRoute exact path='/' component={LandingPage} />
+						<PublicRoute path='/Login' component={Login} />
+						<Route exact path='/About' />
+						<PrivateRoute exact path='/Home' component={Event} />
+						<PrivateRoute exact path='/Create_Event' component={CreateEvent} />
+						<PrivateRoute exact path='/Events' component={SearchedEvents} />
+						<PrivateRoute exact path='/event/:id' component={SelectedEvent} />
+						<PrivateRoute path='/Logout' />
+						<PrivateRoute exact path='/Profile' component={Profile} />
+						<PrivateRoute
+							exact
+							path='/Change_Password'
+							component={ChangePassword}
+						/>
+					</Router>
+				</StyleRoot>
 			</Provider>
 		);
 	}
