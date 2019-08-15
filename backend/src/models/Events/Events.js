@@ -13,11 +13,31 @@ const EventsSchema = new mongoose.Schema({
 		trim: true,
 		maxlength: 50
 	},
+	img: {
+		type: String,
+		trim: true,
+		validate(value) {
+			if (
+				!value.endsWith('jpeg') ||
+				!value.endsWith('png') ||
+				!value.endsWith('svg') ||
+				!value.endsWith('gif') ||
+				!value.endsWith('jpg')
+			) {
+				throw new Error();
+			}
+		}
+	},
 	description: {
 		type: String,
 		required: true,
 		trim: true,
 		minlength: 150
+	},
+	location: {
+		type: String,
+		trim: true,
+		required: true
 	},
 	rsvps: [String],
 	created: {
@@ -30,7 +50,18 @@ const EventsSchema = new mongoose.Schema({
 		required: true
 	}
 });
-
+EventsSchema.pre('remove', async function(next) {
+	const event = this;
+	const users = await User.find({ attending: event.title });
+	users = users.map(user =>
+		user.attending.filter(async attend => {
+			attend !== event.title;
+			await user.save();
+		})
+	);
+	console.log(users);
+	next();
+});
 const Event = mongoose.model('Event', EventsSchema);
 
 module.exports = Event;

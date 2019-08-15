@@ -3,7 +3,10 @@ import * as actionTypes from '../../actions/Auth/types';
 const intialState = {
 	isAuth: null,
 	loading: true,
-	user: null
+	user: null,
+	edit: false,
+	delete: false,
+	logoutAll: false
 };
 
 //auth reducer
@@ -29,11 +32,15 @@ const authReducer = (state = intialState, action) => {
 		case actionTypes.LOGIN_FAIL:
 		case actionTypes.LOGOUT:
 		case actionTypes.LOGOUT_ALL:
+		case actionTypes.DELETE_PROFILE:
 			localStorage.removeItem('token');
 			return {
 				...state,
 				isAuth: false,
 				loading: false,
+				edit: false,
+				logoutAll: false,
+				delete: false,
 				user: null
 			};
 		case actionTypes.SIGNUP_SUCCESS:
@@ -47,6 +54,42 @@ const authReducer = (state = intialState, action) => {
 				isAuth: true,
 				loading: false,
 				user: { ...payload }
+			};
+		case actionTypes.UPDATE_PROFILE_SUCCESS:
+			return {
+				...state,
+				edit: false,
+				user: { ...payload }
+			};
+		case actionTypes.UPDATE_PROFILE_FAIL:
+			return {
+				...state,
+				edit: false
+			};
+		case actionTypes.EDIT_PROFILE:
+			return {
+				...state,
+				edit: true
+			};
+		case actionTypes.TO_DELETE_PROFILE:
+			return {
+				...state,
+				delete: true
+			};
+		case actionTypes.CANCEL_DELETE:
+			return {
+				...state,
+				delete: false
+			};
+		case actionTypes.TO_LOGOUT_ALL:
+			return {
+				...state,
+				logoutAll: true
+			};
+		case actionTypes.CANCEL_LOGOUT:
+			return {
+				...state,
+				logoutAll: false
 			};
 		default:
 			return {

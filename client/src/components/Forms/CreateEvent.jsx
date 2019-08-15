@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import * as actionCreators from '../../store/actions/Events/creators';
@@ -8,6 +7,7 @@ export class CreateEvent extends Component {
 		title: '',
 		description: '',
 		date: '',
+		location: '',
 		redirect: false
 	};
 	changeHandler = evt => {
@@ -20,6 +20,7 @@ export class CreateEvent extends Component {
 		this.setState({ redirect: true });
 	};
 	render() {
+		const { title, description, date, location } = this.state;
 		return (
 			<div>
 				{this.state.redirect ? (
@@ -27,9 +28,10 @@ export class CreateEvent extends Component {
 				) : (
 					<form
 						onSubmit={this.submitHandler.bind(this, {
-							title: this.state.title,
-							description: this.state.description,
-							date: this.state.date
+							title,
+							description,
+							date,
+							location
 						})}>
 						<div className='form-group'>
 							<input
@@ -40,6 +42,17 @@ export class CreateEvent extends Component {
 								className='form-control form-control-lg'
 								value={this.state.title}
 								onChange={this.changeHandler}
+								required
+							/>
+							<input
+								type='text'
+								name='location'
+								id='loacation'
+								placeholder='Address of event'
+								className='form-control form-control-lg'
+								value={this.state.location}
+								onChange={this.changeHandler}
+								required
 							/>
 							<input
 								type='date'
@@ -49,6 +62,7 @@ export class CreateEvent extends Component {
 								placeholder='--/--/----'
 								value={this.state.date}
 								onChange={this.changeHandler}
+								required
 							/>
 							<textarea
 								name='description'

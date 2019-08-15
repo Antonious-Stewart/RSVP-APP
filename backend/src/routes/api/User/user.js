@@ -67,7 +67,13 @@ router.get('/profile/', auth, async (req, res) => {
 router.patch('/profile/:id/edit', auth, async (req, res) => {
 	const updates = Object.keys(req.body);
 	//only update direct user data is allowed
-	const allowedUpdates = ['username', 'email', 'password'];
+	const allowedUpdates = [
+		'username',
+		'email',
+		'password',
+		'location',
+		'profileImg'
+	];
 	// check for a match within allowed updates and the req.body
 	const isMatch = updates.every(update => allowedUpdates.includes(update));
 	try {

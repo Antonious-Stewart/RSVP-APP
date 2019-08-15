@@ -5,6 +5,21 @@ const auth = require('../../../middleware/auth');
 //get all events
 router.get('/', auth, async (req, res) => {
 	try {
+		if (req.query.search === '') {
+			//if nothing is typed in show all events
+			const events = await Event.find();
+			if (events.length === 0) {
+				return res.status(404).send('No Events at this time come back again');
+			}
+			return res.status(200).send(events);
+		} // if search query is provided search the entry by the title
+		else if (req.query.search) {
+			const events = await Event.find({ title: req.query.search });
+			if (events.length === 0) {
+				return res.status(404).send('No Events at this time come back again');
+			}
+			return res.status(200).send(events);
+		}
 		const events = await Event.find({ rsvps: req.user.email });
 		if (events.length === 0) {
 			return res.status(404).send('No Events at this time come back again');
@@ -56,7 +71,7 @@ router.patch('/:id/edit', auth, async (req, res) => {
 	// turn req.body into an array of its keys
 	const updates = Object.keys(req.body);
 	// updates that are allowd to be made
-	const allowedUpdate = ['description', 'title', 'date'];
+	const allowedUpdate = ['description', 'title', 'date', 'location', 'img'];
 	// check elements in the updates array and see if every elements matches
 	// the allowed updates
 	const isValidUpdate = updates.every(update => allowedUpdate.includes(update));
@@ -120,6 +135,22 @@ router.post(`/${encodeURI('cancel rsvp')}/:id`, auth, async (req, res) => {
 			return res.status(200).send(req.user);
 		}
 		res.status(400).send('bad request');
+	} catch (err) {
+		console.error(err);
+		res.status(500).send(err);
+	}
+});
+//delete event route
+router.delete('/:id', auth, async (req, res) => {
+	try {
+		const event = await Event.findOneAndDelete({
+			_id: req.params.id,
+			organizer: req.user._id
+		});
+		if (!event) {
+			return res.status(404).send('Not found');
+		}
+		res.send(200).send(event);
 	} catch (err) {
 		console.error(err);
 		res.status(500).send(err);

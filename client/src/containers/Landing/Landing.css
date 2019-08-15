@@ -1,0 +1,31 @@
+/* img banner styles */
+.img-banner {
+  width: 50vw;
+  height: 100vh;
+  background: url('../../assets/andrew-neel-QLqNalPe0RA-unsplash.jpg') center /cover no-repeat;
+}
+
+
+#Sign_up_form button {
+  font-size: 1.4rem;
+}
+
+#Sign_up_form input[type="text"],
+#Sign_up_form input[type="password"] {
+  font-size: 1.2rem;
+  transition: .3s ease-in-out
+}
+
+#Sign_up_form input[type="text"]:focus,
+#Sign_up_form input[type="password"]:focus {
+  border: .125rem solid #28a745;
+  box-shadow: 0 0 5px #28a745;
+}
+
+@media (max-width: 600px) {
+  .img-banner {
+   width: 100vw;
+   height: 100vh;
+   background: url('../../assets/andrew-neel-QLqNalPe0RA-unsplash.jpg') center /cover no-repeat;
+ }
+}
