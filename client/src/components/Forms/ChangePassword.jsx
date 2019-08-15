@@ -28,7 +28,13 @@ export class ChangePassword extends Component {
 	render() {
 		const { password } = this.state;
 		return (
-			<div>
+			<div
+				style={{
+					display: 'flex',
+					alignItems: 'center',
+					justifyContent: 'center',
+					height: '94.7vh'
+				}}>
 				{this.state.redirect && <Redirect to='/Profile' />}
 				<form
 					onSubmit={this.submitHandler.bind(this, this.props.user._id, {
@@ -42,20 +48,30 @@ export class ChangePassword extends Component {
 							placeholder='New Password'
 							onChange={this.changeHandler}
 							value={this.state.password}
+							className='form-control'
 							required
 						/>
 						<input
 							type='password'
 							name='confirmPassword'
 							id='confimrPassword'
+							className='form-control'
 							placeholder='confirm New Password'
 							onChange={this.changeHandler}
 							value={this.state.confirmPassword}
 							required
 						/>
 					</div>
-					<button type='submit'>Save</button>
-					<button onClick={() => this.setState({ redirect: true })}>
+					<button
+						type='submit'
+						className='btn btn-success'
+						style={{ fontSize: '1.2rem' }}>
+						Save
+					</button>
+					<button
+						onClick={() => this.setState({ redirect: true })}
+						className='btn btn-light'
+						style={{ fontSize: '1.2rem' }}>
 						Cancel
 					</button>
 				</form>
@@ -69,7 +85,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	save: (id, data) => dispatch(actionCreators.saveProfile(id, data))
+	save: (id, data) => dispatch(actionCreators.updateProfile(id, data))
 });
 
 export default connect(

@@ -3,18 +3,27 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as actionCreators from '../../store/actions/Auth/creators';
+import * as actionTypes from '../../store/actions/Auth/types';
 import Radium from 'radium';
+import LogoutAllModal from '../Modals/LogoutAllModal';
+import DeleteModal from '../Modals/DeleteModal';
 
 export class Profile extends Component {
 	state = {
-		edit: this.props.edit,
 		username: this.props.username,
 		email: this.props.email,
 		location: this.props.location,
-		id: this.props.id
+		id: this.props.id,
+		valid: ''
 	};
 	static propTypes = {
-		auth: PropTypes.object.isRequired
+		username: PropTypes.string.isRequired,
+		email: PropTypes.string.isRequired,
+		location: PropTypes.string.isRequired,
+		id: PropTypes.string.isRequired,
+		edit: PropTypes.bool.isRequired,
+		logout: PropTypes.bool.isRequired,
+		deleteUser: PropTypes.bool.isRequired
 	};
 	changeHandler = evt => {
 		const { name, value } = evt.target;
@@ -25,6 +34,26 @@ export class Profile extends Component {
 		const profileStyles = { height: '94.7vh', padding: '4rem' };
 		return (
 			<div style={profileStyles}>
+				{this.props.deleteUser && (
+					<DeleteModal
+						closeBackdrop={this.props.cancelDelete}
+						change={evt => {
+							const { name, value } = evt.target;
+							this.setState({ [name]: value });
+						}}
+						isValid={this.state.valid !== this.state.email}
+						valid={this.state.valid}
+						delete={() => this.props.delete(this.state.id)}
+						cancelDelete={this.props.cancelDelete}
+					/>
+				)}
+				{this.props.logout && (
+					<LogoutAllModal
+						cancelLogout={this.props.cancelLogout}
+						logout={this.props.logoutAll}
+						closeBackdrop={this.props.cancelLogout}
+					/>
+				)}
 				<div
 					className='float-right'
 					style={{
@@ -52,36 +81,52 @@ export class Profile extends Component {
 						Change password
 					</Link>{' '}
 					<button
-						onClick={() => this.setState({ edit: true })}
+						onClick={() => this.props.toEdit()}
 						className='btn btn-success'
 						style={{ fontSize: '1.5rem', marginRight: '.3rem' }}>
 						Edit
 					</button>
 					<button
-						onClick={id => this.props.delete(this.state.id)}
+						onClick={id => this.props.toDelete()}
 						className='btn btn-danger'
 						style={{ fontSize: '1.5rem', marginRight: '.3rem' }}>
 						Delete
 					</button>
 					<button
-						onClick={() => this.props.logoutAll()}
-						className='btn btn-dark'
-						style={{ fontSize: '1.5rem' }}>
+						onClick={() => this.props.toLogoutAll()}
+						className='btn btn-warning'
+						style={{ fontSize: '1.5rem', marginRight: '.3rem' }}>
 						Logout All Sessions
 					</button>
+					{this.props.edit && (
+						<button
+							className='btn btn-dark'
+							style={{ fontSize: '1.5rem' }}
+							onClick={() => this.props.cancel()}>
+							Cancel
+						</button>
+					)}
 					<Link to='/Home' className='nav-link'>
 						{' '}
 						&larr; Go back
 					</Link>
 				</div>
-				{this.state.edit && (
+				{this.props.edit && (
 					<form
+						className='float-left'
 						onSubmit={evt => {
 							evt.preventDefault();
+							const { id, username, location, email } = this.state;
+							this.props.updateProfile(id, { username, location, email });
+							this.setState({
+								username: this.props.username,
+								location: this.props.location,
+								email: this.props.email
+							});
 						}}>
 						<div>
 							<input
-								className='form-control form-control-lg'
+								className='form-control'
 								type='text'
 								name='username'
 								id='username'
@@ -90,7 +135,7 @@ export class Profile extends Component {
 								value={this.state.username}
 							/>
 							<input
-								className='form-control form-control-lg'
+								className='form-control'
 								type='email'
 								name='email'
 								id='email'
@@ -98,15 +143,18 @@ export class Profile extends Component {
 								onChange={this.changeHandler}
 								value={this.state.email}
 							/>
-							<input type='file' name='profileImg' id='profileImg' />
+
 							<input
 								type='text'
-								name='loction'
+								name='location'
 								id='location'
-								placeholder='Loaction'
+								placeholder='Location'
+								className='form-control'
 								value={this.state.location}
 							/>
-							<button type='submit'>Save</button>
+							<button type='submit' className='btn btn-success'>
+								Update Profile
+							</button>
 						</div>
 					</form>
 				)}
@@ -120,17 +168,25 @@ const mapStateToProps = state => ({
 	email: state.auth.user.email,
 	location: state.auth.user.location,
 	id: state.auth.user._id,
-	edit: state.auth.edit
+	edit: state.auth.edit,
+	logout: state.auth.logoutAll,
+	deleteUser: state.auth.delete
 });
 
 const mapDispatchToProps = dispatch => ({
-	toEdit: () => dispatch(),
-	toLogoutAll : () => dispatch(),
+	toEdit: () => dispatch({ type: actionTypes.EDIT_PROFILE }),
+	toLogoutAll: () => dispatch({ type: actionTypes.TO_LOGOUT_ALL }),
+	toDelete: () => dispatch({ type: actionTypes.TO_DELETE_PROFILE }),
 	delete: id => dispatch(actionCreators.deleteUserProfile(id)),
-	logoutAll: () => dispatch(actionCreators.logoutAll())
+	toLogout: () => dispatch({ type: actionTypes.TO_LOGOUT_ALL }),
+	logoutAll: () => dispatch(actionCreators.logoutAll()),
+	updateProfile: (id, data) => dispatch(actionCreators.updateProfile(id, data)),
+	cancel: () => dispatch({ type: actionTypes.UPDATE_PROFILE_FAIL }),
+	cancelLogout: () => dispatch({ type: actionTypes.CANCEL_LOGOUT }),
+	cancelDelete: () => dispatch({ type: actionTypes.CANCEL_DELETE })
 });
 
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(Profile);
+)(Radium(Profile));

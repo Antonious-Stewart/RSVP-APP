@@ -34,14 +34,7 @@ export class Event extends Component {
 		return (
 			<div style={eventStyles}>
 				{' '}
-				{this.state.redirect && (
-					<Redirect
-						to={`/event/$ {
-            this.state.id
-          }
-          `}
-					/>
-				)}
+				{this.state.redirect && <Redirect to={`/event/${this.state.id}`} />}
 				{this.props.loading ? (
 					<div className='spinner-grow' />
 				) : (

@@ -4,7 +4,9 @@ const intialState = {
 	isAuth: null,
 	loading: true,
 	user: null,
-	edit: false
+	edit: false,
+	delete: false,
+	logoutAll: false
 };
 
 //auth reducer
@@ -36,6 +38,9 @@ const authReducer = (state = intialState, action) => {
 				...state,
 				isAuth: false,
 				loading: false,
+				edit: false,
+				logoutAll: false,
+				delete: false,
 				user: null
 			};
 		case actionTypes.SIGNUP_SUCCESS:
@@ -50,16 +55,41 @@ const authReducer = (state = intialState, action) => {
 				loading: false,
 				user: { ...payload }
 			};
-		case actionTypes.SAVE_PROFILE_SUCCESS:
+		case actionTypes.UPDATE_PROFILE_SUCCESS:
 			return {
 				...state,
 				edit: false,
 				user: { ...payload }
 			};
-		case actionTypes.SAVE_PROFILE_FAIL:
+		case actionTypes.UPDATE_PROFILE_FAIL:
 			return {
 				...state,
 				edit: false
+			};
+		case actionTypes.EDIT_PROFILE:
+			return {
+				...state,
+				edit: true
+			};
+		case actionTypes.TO_DELETE_PROFILE:
+			return {
+				...state,
+				delete: true
+			};
+		case actionTypes.CANCEL_DELETE:
+			return {
+				...state,
+				delete: false
+			};
+		case actionTypes.TO_LOGOUT_ALL:
+			return {
+				...state,
+				logoutAll: true
+			};
+		case actionTypes.CANCEL_LOGOUT:
+			return {
+				...state,
+				logoutAll: false
 			};
 		default:
 			return {

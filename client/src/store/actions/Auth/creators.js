@@ -111,21 +111,21 @@ export const logoutAll = () => async dispatch => {
 	}
 };
 //save profile successfully action creator
-const saveProfileSuccess = result => ({
-	type: actionTypes.SAVE_PROFILE_SUCCESS,
+const updateProfileSuccess = result => ({
+	type: actionTypes.UPDATE_PROFILE_SUCCESS,
 	payload: result.data
 });
 //save profile failure action creator
-const saveProfileFail = () => ({ type: actionTypes.SAVE_PROFILE_FAIL });
+const updateProfileFail = () => ({ type: actionTypes.UPDATE_PROFILE_FAIL });
 
 //async save profile to dispatch one of the above action creators
 //dependant on response
-export const saveProfile = (id, data) => async dispatch => {
+export const updateProfile = (id, data) => async dispatch => {
 	try {
 		const res = await axios.patch(`/api/user/profile/${id}/edit`, data);
-		dispatch(saveProfileSuccess(res));
+		dispatch(updateProfileSuccess(res));
 	} catch (err) {
-		dispatch(saveProfileFail());
+		dispatch(updateProfileFail());
 	}
 };
 //action creator for deleting a profile by id
