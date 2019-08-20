@@ -32,32 +32,64 @@ export class Event extends Component {
 		};
 
 		return (
-			<div style={eventStyles}>
-				{' '}
-				{this.state.redirect && <Redirect to={`/event/${this.state.id}`} />}
-				{this.props.loading ? (
-					<div className='spinner-grow' />
-				) : (
-					this.props.events.map(event => (
-						<Events
-							view={() => {
-								this.props.viewEvent(event._id);
+			<div style={{ height: '100vh' }}>
+				<div style={eventStyles}>
+					{this.state.redirect && <Redirect to={`/event/${this.state.id}`} />}
+					{this.props.loading ? (
+						<div className='spinner-grow' />
+					) : this.props.events.length !== 0 ? (
+						this.props.events.map(event => (
+							<Events
+								view={() => {
+									this.props.viewEvent(event._id);
 
-								this.setState({
-									redirect: true,
-									id: event._id
-								});
-							}}
-							location={event.location}
-							key={event._id}
-							title={event.title}
-							attending={event.rsvps.includes(this.props.user.email) || false}
-							desc={event.description}
-							cancel={() => this.props.cancel(event._id)}
-							date={event.date}
-						/>
-					))
-				)}
+									this.setState({
+										redirect: true,
+										id: event._id
+									});
+								}}
+								reserve={() => this.props.reserve(event._id)}
+								location={event.location}
+								key={event._id}
+								title={event.title}
+								attending={event.rsvps.includes(this.props.user.email) || false}
+								desc={event.description}
+								cancel={() => this.props.cancel(event._id)}
+								date={event.date}
+							/>
+						))
+					) : (
+						<div
+							style={{
+								height: '35rem',
+								width: '30rem',
+								borderRadius: '1.1rem',
+								boxShadow: '0 0 4px rgba(0,0,0,.4)',
+								textAlign: 'center',
+								padding: '1rem 1.5rem',
+								fontSize: '1.5rem',
+								letterSpacing: '2px',
+								display: 'flex',
+								alignItems: 'center',
+								justifyContent: 'center	',
+								flexDirection: 'column'
+							}}>
+							Create Event
+							<div
+								style={{
+									width: '15rem',
+									height: '15rem',
+									backgroundColor: 'green',
+									borderRadius: '50%',
+									display: 'flex',
+									alignItems: 'center',
+									justifyContent: 'center'
+								}}>
+								+
+							</div>
+						</div>
+					)}
+				</div>
 			</div>
 		);
 	}
@@ -73,7 +105,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
 	getEvents: () => dispatch(actionCreators.getEvents()),
 	cancel: id => dispatch(actionCreators.cancelRsvp(id)),
-	viewEvent: id => dispatch(actionCreators.viewEvent(id))
+	viewEvent: id => dispatch(actionCreators.viewEvent(id)),
+	reserve: id => dispatch(actionCreators.rsvp(id))
 });
 
 export default connect(

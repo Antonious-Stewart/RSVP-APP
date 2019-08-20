@@ -59,8 +59,6 @@ router.get('/:id', auth, async (req, res) => {
 		if (!event) {
 			return res.status(404).send('not found');
 		}
-		await event.populate('organizer').execPopulate();
-		await event.save();
 		res.status(200).json(event);
 	} catch (err) {
 		res.status(500).send(err);
@@ -87,7 +85,7 @@ router.patch('/:id/edit', auth, async (req, res) => {
 			//update the event
 			updates.forEach(update => (event[update] = req.body[update]));
 			await event.save();
-			res.status(202).send(event);
+			res.status(200).send(event);
 		}
 	} catch (err) {
 		console.error(err);

@@ -48,7 +48,7 @@ export default (state = initState, action) => {
 		case actionTypes.SAVE_EVENT_FAIL:
 			return {
 				...state,
-				edit: true
+				edit: false
 			};
 		case actionTypes.CANCEL_RSVP:
 			return {

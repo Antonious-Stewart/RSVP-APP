@@ -18,12 +18,18 @@ export class Navbar extends Component {
 	};
 	render() {
 		return (
-			<Bootstrap.Navbar data-test='app-Navbar-Component' className='bg-success'>
+			<Bootstrap.Navbar
+				data-test='app-Navbar-Component'
+				className='bg-success'
+				style={{ fontSize: '1.5rem', padding: '1.25rem' }}>
 				{this.state.redirect && <Redirect to='/Events' />}
 				<Bootstrap.Nav>
 					{this.props.auth ? (
 						<Fragment>
-							<Link to='/Profile' className=' navbar-brand text-white block'>
+							<Link
+								to='/Profile'
+								className=' navbar-brand text-white block'
+								style={{ fontSize: '1.5rem' }}>
 								{this.props.user.username}
 							</Link>
 							<li className='nav-item'>
@@ -52,8 +58,11 @@ export class Navbar extends Component {
 						</Fragment>
 					) : (
 						<Fragment>
-							<Link to='/' className='navbar-brand text-white'>
-								ReserveIt
+							<Link
+								to='/'
+								className='navbar-brand text-white'
+								style={{ fontSize: '1.5rem' }}>
+								reserveIt
 							</Link>
 							<li className='nav-item'>
 								<Link to='/Login' className='nav-link text-dark'>

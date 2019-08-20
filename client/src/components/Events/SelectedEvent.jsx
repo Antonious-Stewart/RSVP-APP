@@ -20,49 +20,84 @@ export class SelectedEvent extends Component {
 
 	render() {
 		return (
-			<div>
+			<div
+				style={{
+					display: 'flex',
+					alignItems: 'center',
+					justifyContent: 'center',
+					padding: '3rem',
+					height: '100vh'
+				}}>
 				{this.state.redirect && <Redirect to='/Home' />}
 				{this.props.edit ? (
 					<EditEvent />
 				) : (
 					this.props.event.map((evt, i) => (
-						<div key={i}>
+						<div
+							key={i}
+							style={{
+								width: '80rem',
+								height: '100%',
+								boxShadow: '0 0 4px rgba(0,0,0,.5)',
+								padding: '2.5rem'
+							}}>
 							<h3>{evt.title}</h3>
-							<p>
-								<strong>Location:</strong>
+							<p style={{ fontSize: '1.4rem' }}>
+								<strong style={{ fontSize: '1.6rem' }}>Location:</strong>
 								{evt.location}
 							</p>
-							<p>
-								<strong>Date:</strong>
+							<p style={{ fontSize: '1.4rem' }}>
+								<strong style={{ fontSize: '1.6rem' }}>Date:</strong>
 								{evt.date}
 							</p>
-							<img src={evt.img} alt='img of event' />
-							<p>
-								<strong>Description</strong>:{evt.description}
+							<p
+								style={{
+									border: 'double 4px green',
+									padding: '1.5rem',
+									fontSize: '1.5rem',
+									overflow: 'auto',
+									height: '60%'
+								}}>
+								{evt.description}
 							</p>
 							<ul>
-								<strong>Attending:</strong>
+								<strong style={{ fontSize: '1.6rem' }}>Attending:</strong>
 								{evt.rsvps.map((rsvp, i) => (
-									<li key={i}>{rsvp}</li>
+									<li key={i} style={{ fontSize: '1.4rem' }}>
+										{rsvp} ,
+									</li>
 								))}
 							</ul>
-							<footer>
-								<strong>organizer:</strong>
+							<footer style={{ fontSize: '1.4rem' }}>
+								<strong style={{ fontSize: '1.6rem' }}>organizer:</strong>
 								{evt.organizer.username}
 							</footer>
-							<button onClick={this.cancelHandler.bind(this, evt._id)}>
+							<button
+								onClick={this.cancelHandler.bind(this, evt._id)}
+								className='btn btn-light'
+								style={{ fontSize: '1.3rem', marginRight: '.3rem' }}>
 								Cancel Rsvp
 							</button>
 
-							{Object.is(evt.organizer._id, this.props.user) && (
-								<button onClick={() => this.props.editEvent()}>Edit</button>
+							{Object.is(evt.organizer, this.props.user) && (
+								<button
+									onClick={() => this.props.editEvent()}
+									className='btn btn-success'
+									style={{ fontSize: '1.3rem', marginRight: '.3rem' }}>
+									Edit
+								</button>
 							)}
-							{Object.is(evt.organizer._id, this.props.user) && (
-								<button onClick={() => this.props.deleteEvent(evt._id)}>
+							{Object.is(evt.organizer, this.props.user) && (
+								<button
+									onClick={() => this.props.deleteEvent(evt._id)}
+									className='btn btn-danger'
+									style={{ fontSize: '1.3rem' }}>
 									Delete
 								</button>
 							)}
-							<Link to='/Home'>Go back</Link>
+							<Link to='/Home' className='nav-link'>
+								Go back
+							</Link>
 						</div>
 					))
 				)}

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Radium from 'radium';
-import SignUpButton from '../Buttons/SignUpButton';
+import SignUpButton from '../Buttons/SIgnUpButton';
 
 class SignUpForm extends Component {
 	static propTypes = {

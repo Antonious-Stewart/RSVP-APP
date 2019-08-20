@@ -16,6 +16,7 @@ import ChangePassword from './components/Forms/ChangePassword';
 import SearchedEvents from './components/Events/SearchedEvents';
 import { StyleRoot } from 'radium';
 import './App.css';
+import Footer from './components/footer/Footer';
 
 export default class App extends Component {
 	render() {
@@ -24,8 +25,8 @@ export default class App extends Component {
 		}
 		return (
 			<Provider store={store}>
-				<StyleRoot>
-					<Router>
+				<Router>
+					<StyleRoot>
 						<Navbar />
 						<PublicRoute exact path='/' component={LandingPage} />
 						<PublicRoute path='/Login' component={Login} />
@@ -41,8 +42,9 @@ export default class App extends Component {
 							path='/Change_Password'
 							component={ChangePassword}
 						/>
-					</Router>
-				</StyleRoot>
+						<Footer />
+					</StyleRoot>
+				</Router>
 			</Provider>
 		);
 	}
