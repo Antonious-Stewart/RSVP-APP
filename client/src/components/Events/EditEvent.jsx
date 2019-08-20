@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import * as actionCreators from '../../store/actions/Events/creators';
 
 export class EditEvent extends Component {
@@ -20,10 +21,23 @@ export class EditEvent extends Component {
 	};
 
 	render() {
-		const { title, description, location, date, img } = this.state;
+		const { title, description, location, date } = this.state;
 		return (
-			<div>
+			<div
+				style={{
+					display: 'flex',
+					height: '100vh',
+					alignItems: 'center',
+					justifyContent: 'center',
+					padding: '2rem'
+				}}>
 				<form
+					style={{
+						padding: '1.5rem',
+						boxShadow: '0 0 4px rgba(0,0,0,.4)',
+						fontSize: '1.4rem',
+						width: '60rem'
+					}}
 					action='POST'
 					onSubmit={evt => {
 						evt.preventDefault();
@@ -32,11 +46,16 @@ export class EditEvent extends Component {
 							title: '',
 							description: '',
 							location: '',
-							date: '',
-							img: ''
+							date: ''
 						});
 					}}>
 					<div className='form-group'>
+						<label
+							htmlFor='title'
+							className='text-success'
+							style={{ fontSize: '1.6rem' }}>
+							Title
+						</label>
 						<input
 							type='text'
 							name='title'
@@ -44,7 +63,14 @@ export class EditEvent extends Component {
 							placeholder='title'
 							value={title}
 							onChange={this.changeHandler}
+							className='form-control form-control-lg mb-2'
 						/>
+						<label
+							htmlFor='location'
+							className='text-success'
+							style={{ fontSize: '1.6rem' }}>
+							Location
+						</label>
 						<input
 							type='text'
 							name='location'
@@ -52,16 +78,29 @@ export class EditEvent extends Component {
 							placeholder='location '
 							onChange={this.changeHandler}
 							value={location}
+							className='form-control form-control-lg mb-2'
 						/>
+						<label
+							htmlFor='date'
+							className='text-success'
+							style={{ fontSize: '1.6rem' }}>
+							Date
+						</label>
 						<input
-							type='text'
+							type='datetime-local'
 							name='date'
 							id='date'
-							placeholder='--/--/----'
+							placeholder='mm/dd/yyyy'
 							value={date}
 							onChange={this.changeHandler}
+							className='form-control form-control-lg mb-2'
 						/>
-						<input type='file' name='img' id='img' value={img} />
+						<label
+							htmlFor='description'
+							className='text-success'
+							style={{ fontSize: '1.6rem' }}>
+							Description
+						</label>
 						<textarea
 							name='description'
 							id='description'
@@ -70,9 +109,20 @@ export class EditEvent extends Component {
 							placeholder='Description'
 							value={description}
 							onChange={this.changeHandler}
+							className='form-control form-control-lg mb-2'
 						/>
 					</div>
-					<button>Save</button>
+					<button
+						className='btn btn-block mt-2 mb-2 btn-success'
+						style={{ fontSize: '1.5rem' }}>
+						Save
+					</button>
+					<button
+						style={{ fontSize: '1.5rem' }}
+						className='btn btn-light'
+						onClick={() => this.props.cancelEdit()}>
+						cancel
+					</button>
 				</form>
 			</div>
 		);
@@ -84,6 +134,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+	cancelEdit: () => dispatch(actionCreators.saveEventFail()),
 	saveEvent: (id, data) => dispatch(actionCreators.editEvent(id, data))
 });
 

@@ -29,7 +29,8 @@ export class SearchedEvents extends Component {
 			width: '100%',
 			display: 'flex',
 			justifyContent: 'center',
-			alignItems: 'center'
+			alignItems: 'center',
+			marginBottom: '.8rem'
 		};
 		const searchStyles = {
 			borderRadius: '2rem',
@@ -96,7 +97,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
 	searchQuery: query => dispatch(actionCreators.search(query)),
-	viewEvent: id => dispatch(actionCreators.viewEvent(id))
+	viewEvent: id => dispatch(actionCreators.viewEvent(id)),
+	cancel: id => dispatch(actionCreators.cancelRsvp(id))
 });
 
 export default connect(

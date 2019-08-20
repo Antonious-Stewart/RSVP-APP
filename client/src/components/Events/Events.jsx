@@ -40,7 +40,7 @@ export default class Events extends Component {
 				</div>
 				<button
 					onClick={this.props.view}
-					className='btn btn-success'
+					className='btn btn-light'
 					style={{ fontSize: '1.4rem', marginRight: '.25rem' }}>
 					View
 				</button>
@@ -49,10 +49,15 @@ export default class Events extends Component {
 						onClick={this.props.cancel}
 						className='btn btn-dark'
 						style={{ fontSize: '1.4rem', marginRight: '.25rem' }}>
-						Cancel Rsvp
+						Cancel
 					</button>
 				) : (
-					<button onClick={this.props.cancel}>Rsvp</button>
+					<button
+						onClick={this.props.reserve}
+						className='btn btn-success'
+						style={{ fontSize: '1.4rem' }}>
+						reservIt
+					</button>
 				)}
 			</div>
 		);

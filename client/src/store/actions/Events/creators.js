@@ -27,7 +27,20 @@ const cancelSuccess = res => {
 		payload: res.data
 	};
 };
+const rsvpSuccess = res => ({
+	type: actionTypes.RSVP_SUCCESS,
+	payload: res.data
+});
+const rsvpFail = () => ({ type: actionTypes.RSVP_FAIL });
 
+export const rsvp = id => async dispatch => {
+	try {
+		const res = await axios.post(`/api/events/${id}`);
+		dispatch(rsvpSuccess(res));
+	} catch (err) {
+		dispatch(rsvpFail());
+	}
+};
 export const cancelRsvp = id => async dispatch => {
 	try {
 		const res = await axios.post(`/api/events/cancel rsvp/${id}`);
@@ -111,7 +124,7 @@ const saveEventSuccess = result => ({
 	payload: result.data
 });
 //action creator to have edit state to remain true if the save attempt fails
-const saveEventFail = () => ({ type: actionTypes.SAVE_EVENT_FAIL });
+export const saveEventFail = () => ({ type: actionTypes.SAVE_EVENT_FAIL });
 //async action creator to dispatch events according to attempt success or fail
 export const editEvent = (id, data) => async dispatch => {
 	try {
