@@ -2,20 +2,21 @@
 	"name": "src",
 	"version": "1.0.0",
 	"description": "",
-	"main": "app.js",
+	"main": "server.js",
 	"scripts": {
 		"test": "env-cmd --file ../config/test.env jest --watchAll",
 		"server": "env-cmd --file ../config/dev.env nodemon server.js",
 		"start": "node server.js",
 		"client-install": "npm install --prefix ../../client/",
 		"client": "npm start --prefix ../../client/",
-		"dev": "concurrently \"npm run server\" \"npm run client\" "
+		"dev": "concurrently \"npm run server\" \"npm run client\" ",
+		"heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm instal --prefix ../../client && npm run build --prefix ../../client"
 	},
 	"jest": {
 		"testEnvironment": "node"
 	},
 	"keywords": [],
-	"author": "",
+	"author": "Antonious Stewart",
 	"license": "ISC",
 	"devDependencies": {
 		"bcryptjs": "^2.4.3",
