@@ -17,5 +17,10 @@ app.use('/api/events', eventAPIRoute);
 if (process.env.NODE_ENV === 'production') {
 	const publicDirectory = path.join(__dirname, '/client/build/');
 	app.use(express.static(publicDirectory));
+
+	// Handle React routing, return all requests to React app
+	app.get('*', function(req, res) {
+		res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+	});
 }
 module.exports = app;
