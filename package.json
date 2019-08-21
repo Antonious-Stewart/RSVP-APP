@@ -19,12 +19,12 @@
 	"author": "Antonious Stewart",
 	"license": "ISC",
 	"devDependencies": {
-		"bcryptjs": "^2.4.3",
 		"concurrently": "^4.1.1",
 		"env-cmd": "^9.0.3",
 		"supertest": "^4.0.2"
 	},
 	"dependencies": {
+		"bcryptjs": "^2.4.3",
 		"nodemon": "^1.19.1",
 		"jsonwebtoken": "^8.5.1",
 		"mongoose": "^5.6.6",
