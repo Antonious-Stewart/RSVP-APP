@@ -7,10 +7,10 @@
 		"test": "env-cmd --file ../config/test.env jest --watchAll",
 		"server": "env-cmd --file ../config/dev.env nodemon server.js",
 		"start": "node server.js",
-		"client-install": "npm install --prefix ../../client/",
-		"client": "npm start --prefix ../../client/",
+		"client-install": "npm install --prefix ../client/",
+		"client": "npm start --prefix ../client/",
 		"dev": "concurrently \"npm run server\" \"npm run client\" ",
-		"heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm instal --prefix ../../client && npm run build --prefix ../../client"
+		"heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm instal --prefix ../client && npm run build --prefix ../client"
 	},
 	"jest": {
 		"testEnvironment": "node"
