@@ -29,12 +29,13 @@ export class Profile extends Component {
 		const { name, value } = evt.target;
 		this.setState({ [name]: value });
 	};
+
 	render() {
-		const { username, email, location } = this.state;
+		const { username, email, location } = this.props;
 		const profileStyles = {
 			height: '100vh',
 			padding: '4rem',
-			'@media (max-width:575px)': {
+			'@media (max-width:610px)': {
 				padding: '2rem'
 			}
 		};
@@ -67,21 +68,22 @@ export class Profile extends Component {
 						padding: '5rem',
 						boxShadow: '3px 5px 5px rgba(0,0,0,.4)',
 						'@media (max-width:610px)': {
-							padding: '3rem'
+							padding: '3rem',
+							float: 'none',
+							width: '90vw'
 						},
 						'@media (max-width:575px)': {
-							padding: '2.5rem',
-							float: 'none',
-							width: '90vw',
-							marginBottom: '2rem'
+							padding: '2.5rem'
 						},
 						'@media (max-width:430px)': {
-							padding: '1.75rem'
+							padding: '1.75rem',
+							wordBreak: 'break-all'
 						}
 					}}>
 					<h2
 						className='lead display-1 '
 						style={{
+							fontFamily: 'Lobster Two',
 							'@media (max-width:610px)': {
 								fontSize: '3rem',
 								fontWeight: '500'
@@ -98,10 +100,11 @@ export class Profile extends Component {
 						}}>
 						<strong
 							style={{
-								fontSize: '1.8rem',
+								fontFamily: 'Lobster Two',
+								fontSize: '2rem',
 								color: '#56A902',
 								'@media (max-width:610px)': {
-									fontSize: '1.6rem'
+									fontSize: '1.8rem'
 								}
 							}}>
 							Location: &nbsp;
@@ -117,10 +120,11 @@ export class Profile extends Component {
 						}}>
 						<strong
 							style={{
-								fontSize: '1.8rem',
+								fontFamily: 'Lobster Two',
+								fontSize: '2rem',
 								color: '#56A902',
 								'@media (max-width:610px)': {
-									fontSize: '1.6rem'
+									fontSize: '1.8rem'
 								}
 							}}>
 							Email: &nbsp;
@@ -131,6 +135,7 @@ export class Profile extends Component {
 						to='/Change_Password'
 						className='d-block text-dark'
 						style={{
+							fontFamily: 'Lobster Two',
 							fontSize: '1.8rem'
 						}}>
 						Change password
@@ -139,6 +144,7 @@ export class Profile extends Component {
 						onClick={() => this.props.toEdit()}
 						className='btn btn-success'
 						style={{
+							fontFamily: 'Lobster Two',
 							fontSize: '1.5rem',
 							marginRight: '.3rem',
 							'@media (max-width:610px)': {
@@ -151,22 +157,24 @@ export class Profile extends Component {
 						onClick={id => this.props.toDelete()}
 						className='btn btn-danger'
 						style={{
-							fontSize: '1.5rem',
+							fontFamily: 'Lobster Two',
+							fontSize: '1.7rem',
 							marginRight: '.3rem',
 							'@media (max-width:610px)': {
-								fontSize: '1.3rem'
+								fontSize: '1.5rem'
 							}
 						}}>
 						Delete
 					</button>
 					<button
 						onClick={() => this.props.toLogoutAll()}
-						className='btn btn-warning'
+						className='btn btn-warning text-white'
 						style={{
-							fontSize: '1.5rem',
+							fontFamily: 'Lobster Two',
+							fontSize: '1.7rem',
 							marginRight: '.3rem',
 							'@media (max-width:610px)': {
-								fontSize: '1.3rem'
+								fontSize: '1.5rem'
 							}
 						}}>
 						Logout All Sessions
@@ -175,12 +183,23 @@ export class Profile extends Component {
 						<button
 							className='btn btn-dark'
 							style={{
-								fontSize: '1.5rem',
+								fontFamily: 'Lobster Two',
+								fontSize: '1.7rem',
 								'@media (max-width:610px)': {
-									fontSize: '1.3rem'
+									fontSize: '1.5rem'
+								},
+								'@media (max-width:370px)': {
+									marginTop: '.3rem'
 								}
 							}}
-							onClick={() => this.props.cancel()}>
+							onClick={() => {
+								this.props.cancel();
+								this.setState({
+									username: this.props.username,
+									email: this.props.email,
+									location: this.props.location
+								});
+							}}>
 							Cancel
 						</button>
 					)}
@@ -192,6 +211,25 @@ export class Profile extends Component {
 				{this.props.edit && (
 					<form
 						className='float-left'
+						style={{
+							width: '45vw',
+							'@media (max-width:1096px)': {
+								width: '40vw'
+							},
+							'@media (max-width:1024px)': {
+								width: '35vw'
+							},
+							'@media (max-width:920px)': {
+								width: '30vw'
+							},
+							'@media (max-width:860px)': {
+								width: '24vw'
+							},
+							'@media (max-width:768px)': {
+								marginTop: '3rem',
+								width: '90vw'
+							}
+						}}
 						onSubmit={evt => {
 							evt.preventDefault();
 							const { id, username, location, email } = this.state;
@@ -204,7 +242,8 @@ export class Profile extends Component {
 						}}>
 						<div>
 							<input
-								className='form-control'
+								className='form-control form-control-lg'
+								style={{ fontSize: '1.4rem' }}
 								type='text'
 								name='username'
 								id='username'
@@ -213,7 +252,8 @@ export class Profile extends Component {
 								value={this.state.username}
 							/>
 							<input
-								className='form-control'
+								className='form-control form-control-lg'
+								style={{ fontSize: '1.4rem' }}
 								type='email'
 								name='email'
 								id='email'
@@ -227,10 +267,15 @@ export class Profile extends Component {
 								name='location'
 								id='location'
 								placeholder='Location'
-								className='form-control'
+								className='form-control form-control-lg'
+								style={{ fontSize: '1.4rem' }}
 								value={this.state.location}
+								onChange={this.changeHandler}
 							/>
-							<button type='submit' className='btn btn-success'>
+							<button
+								type='submit'
+								className='btn btn-success'
+								style={{ fontSize: '1.4rem' }}>
 								Update Profile
 							</button>
 						</div>

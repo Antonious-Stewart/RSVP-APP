@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import Radium from 'radium';
@@ -32,7 +32,12 @@ export class Event extends Component {
 		};
 
 		return (
-			<div style={{ height: '100vh' }}>
+			<div
+				style={
+					this.props.events.length < 2
+						? { height: '100vh' }
+						: { height: '100%' }
+				}>
 				<div style={eventStyles}>
 					{this.state.redirect && <Redirect to={`/event/${this.state.id}`} />}
 					{this.props.loading ? (
@@ -67,26 +72,22 @@ export class Event extends Component {
 								boxShadow: '0 0 4px rgba(0,0,0,.4)',
 								textAlign: 'center',
 								padding: '1rem 1.5rem',
-								fontSize: '1.5rem',
+								fontSize: '3rem',
 								letterSpacing: '2px',
 								display: 'flex',
 								alignItems: 'center',
 								justifyContent: 'center	',
-								flexDirection: 'column'
+								flexDirection: 'column',
+								fontFamily: 'Lobster Two'
 							}}>
 							Create Event
-							<div
-								style={{
-									width: '15rem',
-									height: '15rem',
-									backgroundColor: 'green',
-									borderRadius: '50%',
-									display: 'flex',
-									alignItems: 'center',
-									justifyContent: 'center'
-								}}>
-								+
-							</div>
+							<Link to='/Create_Event'>
+								{' '}
+								<ion-icon
+									name='add-circle'
+									style={{ color: 'green', fontSize: '20rem' }}
+								/>
+							</Link>
 						</div>
 					)}
 				</div>

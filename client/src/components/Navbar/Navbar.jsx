@@ -7,41 +7,34 @@ import * as authActionCreators from '../../store/actions/Auth/creators';
 import Radium from 'radium';
 import './Navbar.css';
 export class Navbar extends Component {
-	state = { show: false };
 	static propTypes = {
 		auth: PropTypes.bool,
 		username: PropTypes.string
 	};
+
 	render() {
-		let show;
 		return (
 			<Bootstrap.Navbar
 				data-test='app-Navbar-Component'
 				className='bg-success navbar-expand-sm navbar-dark'
 				style={{
 					fontSize: '1.5rem',
-					padding: '1.25rem',
-					'@media (max-width: 400px)': {
-						fontSize: '1.3rem'
-					}
+					padding: '1.25rem'
 				}}>
 				<Link
 					to={this.props.auth ? { pathname: '/Profile' } : { pathname: '/' }}
 					className=' navbar-brand text-white block'
 					style={{
-						fontSize: '1.5rem',
-						'@media (max-width: 400px)': {
-							fontSize: '1.3rem'
-						}
+						fontSize: '1.5rem'
 					}}>
 					{this.props.auth ? this.props.user.username : 'reserveIt'}
 				</Link>
 				<Bootstrap.NavbarToggler
 					className='d-lg-none'
-					onClick={() => this.setState({ show: !this.state.show })}
+					onClick={this.props.click}
 				/>
 				<div
-					className={`${!this.state.show ? 'collapse' : ''} navbar-collapse`}>
+					className={`${!this.props.show ? 'collapse' : ''} navbar-collapse`}>
 					<Bootstrap.Nav className='navbar-nav'>
 						{this.props.auth ? (
 							<Fragment>
@@ -82,7 +75,9 @@ export class Navbar extends Component {
 									</Link>
 								</Bootstrap.NavItem>
 								<Bootstrap.NavItem>
-									<Link className='nav-link'>About</Link>
+									<Link className='nav-link' to='/About'>
+										About
+									</Link>
 								</Bootstrap.NavItem>
 							</Fragment>
 						)}

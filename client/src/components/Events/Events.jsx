@@ -23,32 +23,52 @@ export default class Events extends Component {
 		const { title, desc, date, location, attending } = this.props;
 		return (
 			<div style={eventsStyles}>
-				<h3 className='lead display-4 text-success'>{title}</h3>
+				<h3
+					className='lead display-4 text-success'
+					style={{ fontFamily: 'Lobster Two' }}>
+					{title}
+				</h3>
 				<h5
 					style={{
 						fontSize: '1.6rem',
 						textTransform: 'capitalize'
 					}}>
-					<strong>Location:</strong>
+					<strong style={{ fontFamily: 'Lobster Two', fontSize: '1.6rem' }}>
+						Location:
+					</strong>
 					{location}
 				</h5>
 				<p>
-					<strong>Description</strong>:{desc}
+					<strong style={{ fontFamily: 'Lobster Two', fontSize: '1.6rem' }}>
+						Description
+					</strong>
+					:{desc}
 				</p>
 				<div>
-					<strong>Date</strong>:{date}
+					<strong style={{ fontFamily: 'Lobster Two', fontSize: '1.6rem' }}>
+						Date
+					</strong>
+					:{date}
 				</div>
 				<button
 					onClick={this.props.view}
 					className='btn btn-light'
-					style={{ fontSize: '1.4rem', marginRight: '.25rem' }}>
+					style={{
+						fontSize: '1.6rem',
+						marginRight: '.25rem',
+						fontFamily: 'Lobster Two'
+					}}>
 					View
 				</button>
 				{attending ? (
 					<button
 						onClick={this.props.cancel}
 						className='btn btn-dark'
-						style={{ fontSize: '1.4rem', marginRight: '.25rem' }}>
+						style={{
+							fontSize: '1.6rem',
+							marginRight: '.25rem',
+							fontFamily: 'Lobster Two'
+						}}>
 						Cancel
 					</button>
 				) : (

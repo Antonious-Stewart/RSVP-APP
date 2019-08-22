@@ -114,7 +114,7 @@ export class EditEvent extends Component {
 					</div>
 					<button
 						className='btn btn-block mt-2 mb-2 btn-success'
-						style={{ fontSize: '1.5rem' }}>
+						style={{ fontSize: '1.5rem', fontFamily: 'Lobster Two' }}>
 						Save
 					</button>
 					<button

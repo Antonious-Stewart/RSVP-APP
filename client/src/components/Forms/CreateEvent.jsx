@@ -35,7 +35,7 @@ export class CreateEvent extends Component {
 				) : (
 					<form
 						style={{
-							fontSize: '1.4rem',
+							fontSize: '1.6rem',
 							width: '50vw',
 							border: 'double 4px black',
 							padding: '2rem',
@@ -60,8 +60,11 @@ export class CreateEvent extends Component {
 							location
 						})}>
 						<div className='form-group'>
-							<label htmlFor='title' className='text-success'>
-								Title:
+							<label
+								htmlFor='title'
+								className='text-success'
+								style={{ fontFamily: 'Lobster Two' }}>
+								Title
 							</label>
 							<input
 								type='text'
@@ -73,7 +76,10 @@ export class CreateEvent extends Component {
 								onChange={this.changeHandler}
 								required
 							/>
-							<label htmlFor='location' className='text-success'>
+							<label
+								htmlFor='location'
+								className='text-success'
+								style={{ fontFamily: 'Lobster Two' }}>
 								Event Location
 							</label>
 							<input
@@ -86,7 +92,10 @@ export class CreateEvent extends Component {
 								onChange={this.changeHandler}
 								required
 							/>
-							<label htmlFor='date' className='text-success'>
+							<label
+								htmlFor='date'
+								className='text-success'
+								style={{ fontFamily: 'Lobster Two' }}>
 								Date
 							</label>
 							<input
@@ -99,10 +108,14 @@ export class CreateEvent extends Component {
 								onChange={this.changeHandler}
 								required
 							/>
-							<label htmlFor='description' className='text-success'>
+							<label
+								htmlFor='description'
+								className='text-success'
+								style={{ fontFamily: 'Lobster Two' }}>
 								Description of the Event
 							</label>
 							<textarea
+								style={{ marginBottom: '.3rem' }}
 								name='description'
 								id='description'
 								cols='30'
@@ -115,7 +128,7 @@ export class CreateEvent extends Component {
 							<button
 								type='submit'
 								className='btn btn-block btn-success'
-								style={{ fontSize: '1.2rem' }}>
+								style={{ fontSize: '1.6rem', fontFamily: 'Lobster Two' }}>
 								Submit
 							</button>
 							<Link to='/Home' className='nav-link'>
