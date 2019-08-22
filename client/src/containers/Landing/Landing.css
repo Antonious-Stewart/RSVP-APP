@@ -1,7 +1,7 @@
 /* img banner styles */
 .img-banner {
   width: 50vw;
-  height: 90vh;
+  height: 100vh;
   background: url('../../assets/andrew-neel-QLqNalPe0RA-unsplash.jpg') center /cover no-repeat;
 }
 
