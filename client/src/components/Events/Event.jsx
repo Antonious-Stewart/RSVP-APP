@@ -32,12 +32,7 @@ export class Event extends Component {
 		};
 
 		return (
-			<div
-				style={
-					this.props.events.length < 2
-						? { height: '100vh' }
-						: { height: '100%' }
-				}>
+			<div>
 				<div style={eventStyles}>
 					{this.state.redirect && <Redirect to={`/event/${this.state.id}`} />}
 					{this.props.loading ? (

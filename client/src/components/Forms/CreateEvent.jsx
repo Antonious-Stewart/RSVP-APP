@@ -25,7 +25,7 @@ export class CreateEvent extends Component {
 		return (
 			<div
 				style={{
-					height: '100vh',
+					height: '85vh',
 					display: 'flex',
 					alignItems: 'center',
 					justifyContent: 'center'

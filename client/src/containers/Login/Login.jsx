@@ -22,7 +22,7 @@ export class Login extends Component {
 	};
 	render() {
 		return (
-			<div style={{ height: '100vh' }}>
+			<div>
 				<LoginForm
 					change={this.changeHandler}
 					email={this.state.email}

@@ -33,7 +33,6 @@ export class Profile extends Component {
 	render() {
 		const { username, email, location } = this.props;
 		const profileStyles = {
-			height: '100vh',
 			padding: '4rem',
 			'@media (max-width:610px)': {
 				padding: '2rem'

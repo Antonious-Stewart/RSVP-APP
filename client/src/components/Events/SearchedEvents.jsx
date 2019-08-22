@@ -25,12 +25,11 @@ export class SearchedEvents extends Component {
 
 	render() {
 		const headerStyles = {
-			height: '94.7vh',
+			minHeight: '100vh',
 			width: '100%',
 			display: 'flex',
 			justifyContent: 'center',
-			alignItems: 'center',
-			marginBottom: '.8rem'
+			alignItems: 'center'
 		};
 		const searchStyles = {
 			borderRadius: '2rem',
