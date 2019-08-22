@@ -1,82 +1,93 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import * as Bootstrap from 'reactstrap';
 import * as authActionCreators from '../../store/actions/Auth/creators';
-import * as eventActionCreators from '../../store/actions/Events/creators';
+import Radium from 'radium';
 import './Navbar.css';
 export class Navbar extends Component {
-	state = {
-		search: '',
-		redirect: false
-	};
+	state = { show: false };
 	static propTypes = {
 		auth: PropTypes.bool,
-		logout: PropTypes.func,
-		logoutAll: PropTypes.func
+		username: PropTypes.string
 	};
 	render() {
+		let show;
 		return (
 			<Bootstrap.Navbar
 				data-test='app-Navbar-Component'
-				className='bg-success'
-				style={{ fontSize: '1.5rem', padding: '1.25rem' }}>
-				{this.state.redirect && <Redirect to='/Events' />}
-				<Bootstrap.Nav>
-					{this.props.auth ? (
-						<Fragment>
-							<Link
-								to='/Profile'
-								className=' navbar-brand text-white block'
-								style={{ fontSize: '1.5rem' }}>
-								{this.props.user.username}
-							</Link>
-							<li className='nav-item'>
-								<Link
-									to='/Login'
-									className='nav-link text-dark'
-									onClick={() => this.props.logout()}>
-									Logout
-								</Link>
-							</li>
-							<li className='nav-item'>
-								<Link to='/Create_Event' className='nav-link text-dark'>
-									Create Event
-								</Link>
-							</li>
-							<li className='nav-item'>
-								<Link className='nav-link text-dark' to='/Home'>
-									Home
-								</Link>
-							</li>
-							<li className='nav-item'>
-								<Link to='/Events' className='nav-link text-dark'>
-									Events
-								</Link>
-							</li>
-						</Fragment>
-					) : (
-						<Fragment>
-							<Link
-								to='/'
-								className='navbar-brand text-white'
-								style={{ fontSize: '1.5rem' }}>
-								reserveIt
-							</Link>
-							<li className='nav-item'>
-								<Link to='/Login' className='nav-link text-dark'>
-									Login
-								</Link>
-							</li>
-							<li className='nav-item'>
-								<Link to='/About' className='nav-link text-dark'>
-									About
-								</Link>
-							</li>
-						</Fragment>
-					)}
-				</Bootstrap.Nav>
+				className='bg-success navbar-expand-sm navbar-dark'
+				style={{
+					fontSize: '1.5rem',
+					padding: '1.25rem',
+					'@media (max-width: 400px)': {
+						fontSize: '1.3rem'
+					}
+				}}>
+				<Link
+					to={this.props.auth ? { pathname: '/Profile' } : { pathname: '/' }}
+					className=' navbar-brand text-white block'
+					style={{
+						fontSize: '1.5rem',
+						'@media (max-width: 400px)': {
+							fontSize: '1.3rem'
+						}
+					}}>
+					{this.props.auth ? this.props.user.username : 'reserveIt'}
+				</Link>
+				<Bootstrap.NavbarToggler
+					className='d-lg-none'
+					onClick={() => this.setState({ show: !this.state.show })}
+				/>
+				<div
+					className={`${!this.state.show ? 'collapse' : ''} navbar-collapse`}>
+					<Bootstrap.Nav className='navbar-nav'>
+						{this.props.auth ? (
+							<Fragment>
+								<Bootstrap.NavItem>
+									<Link className='nav-link' to='/Home'>
+										Home
+									</Link>
+								</Bootstrap.NavItem>
+								<Bootstrap.NavItem>
+									<Link className='nav-link' to='/Create_Event'>
+										Create Event
+									</Link>
+								</Bootstrap.NavItem>
+								<Bootstrap.NavItem>
+									<Link className='nav-link' to='/Events'>
+										Events
+									</Link>
+								</Bootstrap.NavItem>
+								<Bootstrap.NavItem>
+									<Link className='nav-link' to='About'>
+										About
+									</Link>
+								</Bootstrap.NavItem>
+								<Bootstrap.NavItem>
+									<Link
+										to='/Login'
+										className='nav-link'
+										onClick={() => this.props.logout()}>
+										Logout
+									</Link>
+								</Bootstrap.NavItem>
+							</Fragment>
+						) : (
+							<Fragment>
+								<Bootstrap.NavItem>
+									<Link to='/Login' className='nav-link'>
+										Login
+									</Link>
+								</Bootstrap.NavItem>
+								<Bootstrap.NavItem>
+									<Link className='nav-link'>About</Link>
+								</Bootstrap.NavItem>
+							</Fragment>
+						)}
+					</Bootstrap.Nav>
+				</div>
 			</Bootstrap.Navbar>
 		);
 	}
@@ -88,11 +99,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	logout: () => dispatch(authActionCreators.logout()),
-	search: query => dispatch(eventActionCreators.search(query))
+	logout: () => dispatch(authActionCreators.logout())
 });
 
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(Navbar);
+)(Radium(Navbar));

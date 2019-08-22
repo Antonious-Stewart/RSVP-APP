@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
 import * as actionCreators from '../../store/actions/Events/creators';
+import Radium from 'radium';
 export class CreateEvent extends Component {
 	state = {
 		title: '',
@@ -24,7 +25,7 @@ export class CreateEvent extends Component {
 		return (
 			<div
 				style={{
-					height: '86.5vh',
+					height: '100vh',
 					display: 'flex',
 					alignItems: 'center',
 					justifyContent: 'center'
@@ -38,7 +39,19 @@ export class CreateEvent extends Component {
 							width: '50vw',
 							border: 'double 4px black',
 							padding: '2rem',
-							boxShadow: '-2px 5px 3px rgba(0,0,0,.4)'
+							boxShadow: '-2px 5px 3px rgba(0,0,0,.4)',
+							'@media (max-width: 740px)': {
+								width: '50rem'
+							},
+							'@media (max-width: 630px)': {
+								width: '40rem'
+							},
+							'@media (max-width: 500px)': {
+								width: '30rem'
+							},
+							'@media (max-width: 340px)': {
+								width: '25rem'
+							}
 						}}
 						onSubmit={this.submitHandler.bind(this, {
 							title,
@@ -125,4 +138,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(CreateEvent);
+)(Radium(CreateEvent));

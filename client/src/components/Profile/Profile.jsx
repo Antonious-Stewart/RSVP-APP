@@ -31,7 +31,13 @@ export class Profile extends Component {
 	};
 	render() {
 		const { username, email, location } = this.state;
-		const profileStyles = { height: '94.7vh', padding: '4rem' };
+		const profileStyles = {
+			height: '100vh',
+			padding: '4rem',
+			'@media (max-width:575px)': {
+				padding: '2rem'
+			}
+		};
 		return (
 			<div style={profileStyles}>
 				{this.props.deleteUser && (
@@ -59,49 +65,121 @@ export class Profile extends Component {
 					style={{
 						border: 'double 4px #75D701',
 						padding: '5rem',
-						boxShadow: '3px 5px 5px rgba(0,0,0,.4)'
+						boxShadow: '3px 5px 5px rgba(0,0,0,.4)',
+						'@media (max-width:610px)': {
+							padding: '3rem'
+						},
+						'@media (max-width:575px)': {
+							padding: '2.5rem',
+							float: 'none',
+							width: '90vw',
+							marginBottom: '2rem'
+						},
+						'@media (max-width:430px)': {
+							padding: '1.75rem'
+						}
 					}}>
-					<h2 className='lead display-1 '>{username}</h2>
-					<p style={{ fontSize: '2.5rem' }}>
-						<strong style={{ fontSize: '1.8rem', color: '#56A902' }}>
+					<h2
+						className='lead display-1 '
+						style={{
+							'@media (max-width:610px)': {
+								fontSize: '3rem',
+								fontWeight: '500'
+							}
+						}}>
+						{username}
+					</h2>
+					<p
+						style={{
+							fontSize: '2.5rem',
+							'@media (max-width:610px)': {
+								fontSize: '2rem'
+							}
+						}}>
+						<strong
+							style={{
+								fontSize: '1.8rem',
+								color: '#56A902',
+								'@media (max-width:610px)': {
+									fontSize: '1.6rem'
+								}
+							}}>
 							Location: &nbsp;
 						</strong>
-						{location}
+						{location.toUpperCase()}
 					</p>
-					<p style={{ fontSize: '2.5rem' }}>
-						<strong style={{ fontSize: '1.8rem', color: '#56A902' }}>
+					<p
+						style={{
+							fontSize: '2.5rem',
+							'@media (max-width:610px)': {
+								fontSize: '2rem'
+							}
+						}}>
+						<strong
+							style={{
+								fontSize: '1.8rem',
+								color: '#56A902',
+								'@media (max-width:610px)': {
+									fontSize: '1.6rem'
+								}
+							}}>
 							Email: &nbsp;
 						</strong>
 						{email}
 					</p>
 					<Link
 						to='/Change_Password'
-						className='nav-link text-dark'
-						style={{ fontSize: '1.8rem' }}>
+						className='d-block text-dark'
+						style={{
+							fontSize: '1.8rem'
+						}}>
 						Change password
 					</Link>{' '}
 					<button
 						onClick={() => this.props.toEdit()}
 						className='btn btn-success'
-						style={{ fontSize: '1.5rem', marginRight: '.3rem' }}>
+						style={{
+							fontSize: '1.5rem',
+							marginRight: '.3rem',
+							'@media (max-width:610px)': {
+								fontSize: '1.3rem'
+							}
+						}}>
 						Edit
 					</button>
 					<button
 						onClick={id => this.props.toDelete()}
 						className='btn btn-danger'
-						style={{ fontSize: '1.5rem', marginRight: '.3rem' }}>
+						style={{
+							fontSize: '1.5rem',
+							marginRight: '.3rem',
+							'@media (max-width:610px)': {
+								fontSize: '1.3rem'
+							}
+						}}>
 						Delete
 					</button>
 					<button
 						onClick={() => this.props.toLogoutAll()}
 						className='btn btn-warning'
-						style={{ fontSize: '1.5rem', marginRight: '.3rem' }}>
+						style={{
+							fontSize: '1.5rem',
+							marginRight: '.3rem',
+							'@media (max-width:610px)': {
+								fontSize: '1.3rem'
+							}
+						}}>
 						Logout All Sessions
 					</button>
 					{this.props.edit && (
 						<button
 							className='btn btn-dark'
-							style={{ fontSize: '1.5rem' }}
+							style={{
+								fontSize: '1.5rem',
+								'@media (max-width:610px)': {
+									fontSize: '1.3rem'
+								}
+							}}
 							onClick={() => this.props.cancel()}>
 							Cancel
 						</button>

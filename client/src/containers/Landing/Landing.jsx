@@ -88,10 +88,10 @@ class Landing extends Component {
 		};
 
 		return (
-			<div className='landing-page'>
+			<div style={{ height: '100vh' }}>
 				{' '}
-				<h1 style={headingStyles}> ReserveIT </h1>{' '}
-				<div className='img-banner' />{' '}
+				<h1 style={headingStyles}> ReserveIT </h1>
+				<div className='img-banner' />
 				<SignUpForm
 					submit={this.submitHandler.bind(this, this.state)}
 					change={this.changeHandler}
@@ -101,7 +101,7 @@ class Landing extends Component {
 					confirmEmail={confirmEmail}
 					confirmPassword={confirmPassword}
 					location={location}
-				/>{' '}
+				/>
 			</div>
 		);
 	}
