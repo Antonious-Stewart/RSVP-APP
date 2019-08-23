@@ -109,7 +109,7 @@ router.post('/rsvp/:id', auth, async (req, res) => {
 		// add event to users events they are attending
 		req.user.attending = [...req.user.attending, event.title];
 		await req.user.save();
-		res.status(201).send(event);
+		res.status(201).send(req.user);
 	} catch (err) {
 		console.error(err);
 		res.status(500).send(err);
