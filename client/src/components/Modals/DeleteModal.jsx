@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
-export default class DeleteModal extends Component {
+class DeleteModal extends Component {
 	render() {
 		return (
 			<div>
@@ -25,7 +25,15 @@ export default class DeleteModal extends Component {
 						left: '50%',
 						transform: 'translate(-50%, -50%)',
 						borderRadius: '1rem',
-						padding: '2rem 3rem'
+						padding: '2rem 3rem',
+						'@media (max-width:676px)': {
+							width: '80vw',
+							padding: '1rem 2rem'
+						},
+						'@media (max-width:596px)': {
+							width: '90vw',
+							height: '32rem'
+						}
 					}}>
 					<h3
 						style={{
@@ -35,11 +43,21 @@ export default class DeleteModal extends Component {
 							paddingBottom: '1rem',
 							fontSize: '2.4rem',
 							fontWeight: 900,
-							marginBottom: '1.5rem'
+							marginBottom: '1.5rem',
+							'@media (max-width:596px)': {
+								fontSize: '1.8rem'
+							}
 						}}>
 						danger!!!
 					</h3>
-					<p style={{ fontSize: '1.8rem', marginBottom: '2.2rem' }}>
+					<p
+						style={{
+							fontSize: '1.8rem',
+							marginBottom: '2.2rem',
+							'@media (max-width:596px)': {
+								fontSize: '1.6rem'
+							}
+						}}>
 						You are currently attempting to delete your account this cannot be
 						undone once completed you will loose all information pertaining to
 						this account if you would like to procced please enter your email
@@ -51,7 +69,7 @@ export default class DeleteModal extends Component {
 						id='valid'
 						value={this.props.valid}
 						onChange={this.props.change}
-						className='form-control mb-3'
+						className='form-control mb-2'
 					/>
 					<footer
 						style={{
@@ -61,14 +79,24 @@ export default class DeleteModal extends Component {
 						}}>
 						<button
 							className='btn btn-danger'
-							style={{ fontSize: '1.6rem' }}
+							style={{
+								fontSize: '1.6rem',
+								'@media (max-width:596px)': {
+									fontSize: '1.2rem'
+								}
+							}}
 							onClick={this.props.delete}
 							disabled={this.props.isValid}>
 							Delete
 						</button>
 						<button
 							className='btn btn-light'
-							style={{ fontSize: '1.6rem' }}
+							style={{
+								fontSize: '1.6rem',
+								'@media (max-width:596px)': {
+									fontSize: '1.2rem'
+								}
+							}}
 							onClick={this.props.cancelDelete}>
 							Cancel
 						</button>
@@ -78,3 +106,5 @@ export default class DeleteModal extends Component {
 		);
 	}
 }
+
+export default Radium(DeleteModal);

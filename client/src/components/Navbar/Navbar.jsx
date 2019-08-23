@@ -31,11 +31,11 @@ export class Navbar extends Component {
 				</Link>
 				<Bootstrap.NavbarToggler
 					className='d-lg-none'
-					onClick={this.props.click}
+					onClick={this.props.navClick}
 				/>
 				<div
 					className={`${!this.props.show ? 'collapse' : ''} navbar-collapse`}>
-					<Bootstrap.Nav className='navbar-nav'>
+					<Bootstrap.Nav className='navbar-nav' onClick={this.props.close}>
 						{this.props.auth ? (
 							<Fragment>
 								<Bootstrap.NavItem>
@@ -54,11 +54,6 @@ export class Navbar extends Component {
 									</Link>
 								</Bootstrap.NavItem>
 								<Bootstrap.NavItem>
-									<Link className='nav-link' to='About'>
-										About
-									</Link>
-								</Bootstrap.NavItem>
-								<Bootstrap.NavItem>
 									<Link
 										to='/Login'
 										className='nav-link'
@@ -72,11 +67,6 @@ export class Navbar extends Component {
 								<Bootstrap.NavItem>
 									<Link to='/Login' className='nav-link'>
 										Login
-									</Link>
-								</Bootstrap.NavItem>
-								<Bootstrap.NavItem>
-									<Link className='nav-link' to='/About'>
-										About
 									</Link>
 								</Bootstrap.NavItem>
 							</Fragment>

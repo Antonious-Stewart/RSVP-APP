@@ -19,6 +19,9 @@ import './App.css';
 import Footer from './components/footer/Footer';
 
 export default class App extends Component {
+	state = {
+		show: false
+	};
 	render() {
 		if (localStorage.token) {
 			store.dispatch(loadUser());
@@ -27,7 +30,15 @@ export default class App extends Component {
 			<Provider store={store}>
 				<Router>
 					<StyleRoot>
-						<Navbar />
+						<Navbar
+							navClick={() => this.setState({ show: !this.state.show })}
+							close={
+								this.state.show
+									? () => this.setState({ show: !this.state.show })
+									: null
+							}
+							show={this.state.show}
+						/>
 						<PublicRoute exact path='/' component={LandingPage} />
 						<PublicRoute path='/Login' component={Login} />
 						<Route exact path='/About' />

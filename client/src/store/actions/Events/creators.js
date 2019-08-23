@@ -35,7 +35,7 @@ const rsvpFail = () => ({ type: actionTypes.RSVP_FAIL });
 
 export const rsvp = id => async dispatch => {
 	try {
-		const res = await axios.post(`/api/events/${id}`);
+		const res = await axios.post(`/api/events/rsvp/${id}`);
 		dispatch(rsvpSuccess(res));
 	} catch (err) {
 		dispatch(rsvpFail());

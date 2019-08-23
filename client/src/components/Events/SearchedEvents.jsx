@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Events from './Events';
 import { Redirect } from 'react-router-dom';
-import * as actionCreators from '../../store/actions/Events/creators';
 import Radium from 'radium';
+import Events from './Events';
+import * as actionCreators from '../../store/actions/Events/creators';
+
 export class SearchedEvents extends Component {
 	constructor(props) {
 		super(props);
@@ -21,6 +22,7 @@ export class SearchedEvents extends Component {
 	};
 	componentDidMount() {
 		this.searchRef.current.focus();
+		this.setState({ loading: false });
 	}
 
 	render() {
@@ -67,17 +69,28 @@ export class SearchedEvents extends Component {
 						/>
 					</form>
 				</header>
-				<section>
+				<section
+					style={{
+						display: 'flex',
+						alignContent: 'center',
+						justifyContent: 'center',
+						minHeight: '100vh',
+						padding: '4rem',
+						flexDirection: 'column-reverse'
+					}}>
 					{this.props.events.map(event => (
 						<Events
 							view={() => {
 								this.props.viewEvent(event._id);
 								this.setState({ redirect: true, id: event._id });
 							}}
+							reserve={() => this.props.reserve(event._id)}
 							location={event.location}
 							key={event._id}
 							title={event.title}
-							attending={event.rsvps.includes(this.props.user.email) || false}
+							attending={
+								this.props.user.attending.includes(event.title) || false
+							}
 							desc={event.description}
 							cancel={() => this.props.cancel(event._id)}
 							date={event.date}
@@ -97,7 +110,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
 	searchQuery: query => dispatch(actionCreators.search(query)),
 	viewEvent: id => dispatch(actionCreators.viewEvent(id)),
-	cancel: id => dispatch(actionCreators.cancelRsvp(id))
+	cancel: id => dispatch(actionCreators.cancelRsvp(id)),
+	reserve: id => dispatch(actionCreators.rsvp(id))
 });
 
 export default connect(

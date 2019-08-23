@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
-export default class LogoutAllModal extends Component {
+class LogoutAllModal extends Component {
 	render() {
 		return (
 			<div>
@@ -25,7 +25,18 @@ export default class LogoutAllModal extends Component {
 						left: '50%',
 						transform: 'translate(-50%, -50%)',
 						borderRadius: '1rem',
-						padding: '2rem 3rem'
+						padding: '2rem 3rem',
+						'@media (max-width:676px)': {
+							width: '85vw',
+							padding: '1rem 2rem'
+						},
+						'@media (max-width:596px)': {
+							width: '78vw',
+							height: '23rem'
+						},
+						'@media (max-width:430px)': {
+							height: '29rem'
+						}
 					}}>
 					<h3
 						style={{
@@ -35,11 +46,21 @@ export default class LogoutAllModal extends Component {
 							paddingBottom: '1rem',
 							fontSize: '2.4rem',
 							fontWeight: 900,
-							marginBottom: '1.5rem'
+							marginBottom: '1.5rem',
+							'@media (max-width:596px)': {
+								fontSize: '1.8rem'
+							}
 						}}>
 						warning!!!
 					</h3>
-					<p style={{ fontSize: '1.8rem', marginBottom: '3rem' }}>
+					<p
+						style={{
+							fontSize: '1.8rem',
+							marginBottom: '3rem',
+							'@media (max-width:596px)': {
+								fontSize: '1.6rem'
+							}
+						}}>
 						You are currently attempting to logout of all sessions associated
 						with this user to continue with this process click logout. If you DO
 						NOT wish to procced click cancel.
@@ -52,13 +73,23 @@ export default class LogoutAllModal extends Component {
 						}}>
 						<button
 							className='btn btn-primary'
-							style={{ fontSize: '1.6rem' }}
+							style={{
+								fontSize: '1.6rem',
+								'@media (max-width:676px)': {
+									fontSize: '1.2rem'
+								}
+							}}
 							onClick={this.props.logout}>
 							Logout
 						</button>
 						<button
 							className='btn btn-light'
-							style={{ fontSize: '1.6rem' }}
+							style={{
+								fontSize: '1.6rem',
+								'@media (max-width:676px)': {
+									fontSize: '1.2rem'
+								}
+							}}
 							onClick={this.props.cancelLogout}>
 							Cancel
 						</button>
@@ -68,3 +99,5 @@ export default class LogoutAllModal extends Component {
 		);
 	}
 }
+
+export default Radium(LogoutAllModal);

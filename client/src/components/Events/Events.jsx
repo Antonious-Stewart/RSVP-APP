@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Radium from 'radium';
 export default class Events extends Component {
 	render() {
 		Events.propTypes = {
@@ -75,7 +74,7 @@ export default class Events extends Component {
 					<button
 						onClick={this.props.reserve}
 						className='btn btn-success'
-						style={{ fontSize: '1.4rem' }}>
+						style={{ fontSize: '1.4rem', fontFamily: 'Lobster Two, cursive' }}>
 						reservIt
 					</button>
 				)}

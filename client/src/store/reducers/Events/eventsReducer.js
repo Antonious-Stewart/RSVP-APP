@@ -79,6 +79,7 @@ export default (state = initState, action) => {
 				fetchUserEvents: true,
 				searchedEvents: []
 			};
+
 		default:
 			return {
 				...state

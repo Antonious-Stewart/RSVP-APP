@@ -52,7 +52,9 @@ export class Event extends Component {
 								location={event.location}
 								key={event._id}
 								title={event.title}
-								attending={event.rsvps.includes(this.props.user.email) || false}
+								attending={
+									this.props.user.attending.includes(event.title) || false
+								}
 								desc={event.description}
 								cancel={() => this.props.cancel(event._id)}
 								date={event.date}
