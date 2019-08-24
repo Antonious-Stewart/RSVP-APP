@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import * as actionCreators from '../../store/actions/Events/creators';
 import { Redirect, Link } from 'react-router-dom';
 import EditEvent from './EditEvent';
+import DeleteEventModal from '../Modals/DeleteEventModal';
 
 export class SelectedEvent extends Component {
 	state = {
@@ -11,7 +12,11 @@ export class SelectedEvent extends Component {
 	};
 	static propTypes = {
 		event: PropTypes.array.isRequired,
-		cancel: PropTypes.func
+		editEvent: PropTypes.func,
+		cancel: PropTypes.func,
+		deleteEvent: PropTypes.func,
+		toDelete: PropTypes.bool,
+		cancelDelete: PropTypes.func
 	};
 	cancelHandler = id => {
 		this.props.cancel(id);
@@ -25,10 +30,19 @@ export class SelectedEvent extends Component {
 					display: 'flex',
 					alignItems: 'center',
 					justifyContent: 'center',
-					padding: '3rem',
-					height: '100vh'
+					padding: '3rem 0 9rem 0',
+					minHeight: '100vh'
 				}}>
-				{this.state.redirect && <Redirect to='/Home' />}
+				{this.state.redirect && <Redirect to='/' />}
+				{this.props.delete && (
+					<DeleteEventModal
+						cancelDelete={() => {
+							this.props.cancelDelete();
+							this.setState({ redirect: true });
+						}}
+						delete={() => this.props.deleteEvent(this.props.event[0]._id)}
+					/>
+				)}
 				{this.props.edit ? (
 					<EditEvent />
 				) : (
@@ -37,7 +51,6 @@ export class SelectedEvent extends Component {
 							key={i}
 							style={{
 								width: '80rem',
-								height: '100%',
 								boxShadow: '0 0 4px rgba(0,0,0,.5)',
 								padding: '2.5rem'
 							}}>
@@ -79,7 +92,7 @@ export class SelectedEvent extends Component {
 								Cancel Rsvp
 							</button>
 
-							{Object.is(evt.organizer, this.props.user) && (
+							{Object.is(evt.organizer._id, this.props.user) && (
 								<button
 									onClick={() => this.props.editEvent()}
 									className='btn btn-success'
@@ -87,9 +100,9 @@ export class SelectedEvent extends Component {
 									Edit
 								</button>
 							)}
-							{Object.is(evt.organizer, this.props.user) && (
+							{Object.is(evt.organizer._id, this.props.user) && (
 								<button
-									onClick={() => this.props.deleteEvent(evt._id)}
+									onClick={() => this.props.toDelete()}
 									className='btn btn-danger'
 									style={{ fontSize: '1.3rem' }}>
 									Delete
@@ -108,6 +121,7 @@ export class SelectedEvent extends Component {
 
 const mapStateToProps = state => ({
 	event: state.event.selectedEvent,
+	delete: state.event.delete,
 	edit: state.event.edit,
 	user: state.auth.user._id
 });
@@ -115,6 +129,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
 	cancel: id => dispatch(actionCreators.cancelRsvp(id)),
 	editEvent: () => dispatch(actionCreators.edit()),
+	toDelete: () => dispatch(actionCreators.toDelete()),
+	cancelDelete: () => dispatch(actionCreators.cancelDelete()),
 	deleteEvent: id => dispatch(actionCreators.deleteEvent(id))
 });
 

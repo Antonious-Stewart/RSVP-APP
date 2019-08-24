@@ -25,10 +25,11 @@ export class CreateEvent extends Component {
 		return (
 			<div
 				style={{
-					height: '100vh',
+					minHeight: '100vh',
 					display: 'flex',
 					alignItems: 'center',
-					justifyContent: 'center'
+					justifyContent: 'center',
+					padding: '3rem 0 9rem 0'
 				}}>
 				{this.state.redirect ? (
 					<Redirect to='/Home' />
@@ -36,22 +37,10 @@ export class CreateEvent extends Component {
 					<form
 						style={{
 							fontSize: '1.6rem',
-							width: '50vw',
+							width: '85vw',
 							border: 'double 4px black',
 							padding: '2rem',
-							boxShadow: '-2px 5px 3px rgba(0,0,0,.4)',
-							'@media (max-width: 740px)': {
-								width: '50rem'
-							},
-							'@media (max-width: 630px)': {
-								width: '40rem'
-							},
-							'@media (max-width: 500px)': {
-								width: '30rem'
-							},
-							'@media (max-width: 340px)': {
-								width: '25rem'
-							}
+							boxShadow: '-2px 5px 3px rgba(0,0,0,.4)'
 						}}
 						onSubmit={this.submitHandler.bind(this, {
 							title,

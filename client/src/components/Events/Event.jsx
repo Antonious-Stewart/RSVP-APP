@@ -27,7 +27,7 @@ export class Event extends Component {
 	render() {
 		const eventStyles = {
 			display: 'flex',
-			padding: '2rem 2.5rem',
+			padding: '5rem 2.5rem',
 			flexWrap: 'wrap'
 		};
 

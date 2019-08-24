@@ -37,6 +37,7 @@ export class ChangePassword extends Component {
 				}}>
 				{this.state.redirect && <Redirect to='/Profile' />}
 				<form
+					style={{ width: '25rem' }}
 					onSubmit={this.submitHandler.bind(this, this.props.user._id, {
 						password
 					})}>

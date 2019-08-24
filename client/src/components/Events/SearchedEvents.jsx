@@ -69,34 +69,36 @@ export class SearchedEvents extends Component {
 						/>
 					</form>
 				</header>
-				<section
-					style={{
-						display: 'flex',
-						alignContent: 'center',
-						justifyContent: 'center',
-						minHeight: '100vh',
-						padding: '4rem',
-						flexDirection: 'column-reverse'
-					}}>
-					{this.props.events.map(event => (
-						<Events
-							view={() => {
-								this.props.viewEvent(event._id);
-								this.setState({ redirect: true, id: event._id });
-							}}
-							reserve={() => this.props.reserve(event._id)}
-							location={event.location}
-							key={event._id}
-							title={event.title}
-							attending={
-								this.props.user.attending.includes(event.title) || false
-							}
-							desc={event.description}
-							cancel={() => this.props.cancel(event._id)}
-							date={event.date}
-						/>
-					))}
-				</section>
+				{this.props.events.length !== 0 && (
+					<section
+						style={{
+							display: 'flex',
+							alignContent: 'center',
+							justifyContent: 'center',
+							minHeight: '100vh',
+							padding: '4rem',
+							flexDirection: 'column-reverse'
+						}}>
+						{this.props.events.map(event => (
+							<Events
+								view={() => {
+									this.props.viewEvent(event._id);
+									this.setState({ redirect: true, id: event._id });
+								}}
+								reserve={() => this.props.reserve(event._id)}
+								location={event.location}
+								key={event._id}
+								title={event.title}
+								attending={
+									this.props.user.attending.includes(event.title) || false
+								}
+								desc={event.description}
+								cancel={() => this.props.cancel(event._id)}
+								date={event.date}
+							/>
+						))}
+					</section>
+				)}
 			</div>
 		);
 	}

@@ -13,5 +13,7 @@ export const SAVE_EVENT_FAIL = 'SAVE_EVENT_FAIL';
 export const SEARCH_EVENTS_SUCCESS = 'SEARCH_EVENTS_SUCCESS';
 export const SEARCH_EVENTS_FAIL = 'SEARCH_EVENTS_FAIL';
 export const SEARCH = 'SEARCH';
+export const TO_DELETE_EVENT = 'TO_DELETE_EVENT';
+export const TO_CANCEL_DELETE = 'TO_CANCEL_DELETE';
 export const DELETE_EVENT = 'DELETE_EVENT';
 export const ERROR = 'ERROR';
