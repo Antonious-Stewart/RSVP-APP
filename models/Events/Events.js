@@ -49,9 +49,7 @@ const EventsSchema = new mongoose.Schema({
 		type: Date,
 		required: true,
 		validate(value) {
-			if (
-				!Object.is(new Date(value).getFullYear() > new Date().getFullYear())
-			) {
+			if (!Object.is(new Date(value).getFullYear(), new Date().getFullYear())) {
 				throw new Error('Must Be within this year');
 			}
 		}
