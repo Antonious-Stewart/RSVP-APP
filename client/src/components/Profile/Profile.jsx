@@ -144,10 +144,10 @@ export class Profile extends Component {
 						className='btn btn-success'
 						style={{
 							fontFamily: 'Lobster Two',
-							fontSize: '1.5rem',
+							fontSize: '1.7rem',
 							marginRight: '.3rem',
 							'@media (max-width:610px)': {
-								fontSize: '1.3rem'
+								fontSize: '1.5rem'
 							}
 						}}>
 						Edit

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import Radium from 'radium';
@@ -9,11 +9,6 @@ import * as actionCreators from '../../store/actions/Events/creators';
 import setAuthToken from '../../Utils/setAuthToken';
 
 export class Event extends Component {
-	state = {
-		redirect: false,
-		id: ''
-	};
-
 	componentDidMount() {
 		if (localStorage.token) {
 			setAuthToken(localStorage.token);
@@ -30,23 +25,27 @@ export class Event extends Component {
 			padding: '5rem 2.5rem',
 			flexWrap: 'wrap'
 		};
-
+		const eventsStyles = {
+			padding: '1.25rem 2rem',
+			marginRight: '2rem',
+			marginBottom: '3rem',
+			flex: '1 1 45rem',
+			boxShadow: '0 0 3px rgba(0,0,0,.6)',
+			borderRadius: '2rem',
+			fontSize: '1.4rem'
+		};
 		return (
 			<div>
 				<div style={eventStyles}>
-					{this.state.redirect && <Redirect to={`/event/${this.state.id}`} />}
 					{this.props.loading ? (
 						<div className='spinner-grow' />
 					) : this.props.events.length !== 0 ? (
 						this.props.events.map(event => (
 							<Events
+								eventsStyles={eventsStyles}
 								view={() => {
 									this.props.viewEvent(event._id);
-
-									this.setState({
-										redirect: true,
-										id: event._id
-									});
+									this.props.history.push(`Event/${event._id}`);
 								}}
 								reserve={() => this.props.reserve(event._id)}
 								location={event.location}

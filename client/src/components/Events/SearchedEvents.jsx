@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import Radium from 'radium';
 import Events from './Events';
 import * as actionCreators from '../../store/actions/Events/creators';
@@ -12,13 +12,11 @@ export class SearchedEvents extends Component {
 		this.searchRef = React.createRef();
 	}
 	state = {
-		query: '',
-		redirect: false,
-		id: ''
+		query: ''
 	};
 	static propTypes = {
 		search: PropTypes.bool,
-		searchedEvents: PropTypes.array.isRequired
+		events: PropTypes.array.isRequired
 	};
 	componentDidMount() {
 		this.searchRef.current.focus();
@@ -43,9 +41,17 @@ export class SearchedEvents extends Component {
 				border: 0
 			}
 		};
+		const eventsStyles = {
+			padding: '1.25rem 2rem',
+			marginRight: '2rem',
+			marginBottom: '3rem',
+			flex: '0',
+			boxShadow: '0 0 3px rgba(0,0,0,.6)',
+			borderRadius: '2rem',
+			fontSize: '1.4rem'
+		};
 		return (
 			<div>
-				{this.state.redirect && <Redirect to={`/event/${this.state.id}`} />}
 				<header style={headerStyles}>
 					<form
 						method='get'
@@ -81,9 +87,10 @@ export class SearchedEvents extends Component {
 						}}>
 						{this.props.events.map(event => (
 							<Events
+								eventsStyles={eventsStyles}
 								view={() => {
 									this.props.viewEvent(event._id);
-									this.setState({ redirect: true, id: event._id });
+									this.props.history.push(`/Event/${event._id}`);
 								}}
 								reserve={() => this.props.reserve(event._id)}
 								location={event.location}
@@ -115,8 +122,8 @@ const mapDispatchToProps = dispatch => ({
 	cancel: id => dispatch(actionCreators.cancelRsvp(id)),
 	reserve: id => dispatch(actionCreators.rsvp(id))
 });
-
+SearchedEvents = Radium(SearchedEvents);
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(Radium(SearchedEvents));
+)(withRouter(SearchedEvents));

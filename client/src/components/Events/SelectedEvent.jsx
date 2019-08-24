@@ -1,21 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import * as actionCreators from '../../store/actions/Events/creators';
-import { Redirect, Link } from 'react-router-dom';
 import EditEvent from './EditEvent';
 import DeleteEventModal from '../Modals/DeleteEventModal';
 
 export class SelectedEvent extends Component {
-	state = {
-		redirect: false
-	};
 	static propTypes = {
 		event: PropTypes.array.isRequired,
 		editEvent: PropTypes.func,
 		cancel: PropTypes.func,
 		deleteEvent: PropTypes.func,
-		toDelete: PropTypes.bool,
+		toDelete: PropTypes.func,
 		cancelDelete: PropTypes.func
 	};
 	cancelHandler = id => {
@@ -33,14 +30,15 @@ export class SelectedEvent extends Component {
 					padding: '3rem 0 9rem 0',
 					minHeight: '100vh'
 				}}>
-				{this.state.redirect && <Redirect to='/' />}
 				{this.props.delete && (
 					<DeleteEventModal
 						cancelDelete={() => {
 							this.props.cancelDelete();
-							this.setState({ redirect: true });
 						}}
-						delete={() => this.props.deleteEvent(this.props.event[0]._id)}
+						delete={() => {
+							this.props.deleteEvent(this.props.event[0]._id);
+							this.props.history.push('/');
+						}}
 					/>
 				)}
 				{this.props.edit ? (
@@ -54,13 +52,34 @@ export class SelectedEvent extends Component {
 								boxShadow: '0 0 4px rgba(0,0,0,.5)',
 								padding: '2.5rem'
 							}}>
-							<h3>{evt.title}</h3>
+							<h3
+								className='text-success'
+								style={{
+									fontSize: '4.5rem',
+									fontFamily: 'Lobster Two, cursive'
+								}}>
+								{evt.title}
+							</h3>
 							<p style={{ fontSize: '1.4rem' }}>
-								<strong style={{ fontSize: '1.6rem' }}>Location:</strong>
+								<strong
+									className='text-success'
+									style={{
+										fontSize: '1.8rem',
+										fontFamily: 'Lobster Two, cursive'
+									}}>
+									Location:
+								</strong>
 								{evt.location}
 							</p>
 							<p style={{ fontSize: '1.4rem' }}>
-								<strong style={{ fontSize: '1.6rem' }}>Date:</strong>
+								<strong
+									className='text-success'
+									style={{
+										fontSize: '1.8rem',
+										fontFamily: 'Lobster Two, cursive'
+									}}>
+									Date:
+								</strong>
 								{evt.date}
 							</p>
 							<p
@@ -74,7 +93,14 @@ export class SelectedEvent extends Component {
 								{evt.description}
 							</p>
 							<ul>
-								<strong style={{ fontSize: '1.6rem' }}>Attending:</strong>
+								<strong
+									className='text-success'
+									style={{
+										fontSize: '1.8rem',
+										fontFamily: 'Lobster Two, cursive'
+									}}>
+									Attending:
+								</strong>
 								{evt.rsvps.map((rsvp, i) => (
 									<li key={i} style={{ fontSize: '1.4rem' }}>
 										{rsvp} ,
@@ -82,13 +108,24 @@ export class SelectedEvent extends Component {
 								))}
 							</ul>
 							<footer style={{ fontSize: '1.4rem' }}>
-								<strong style={{ fontSize: '1.6rem' }}>organizer:</strong>
+								<strong
+									className='text-success'
+									style={{
+										fontSize: '1.8rem',
+										fontFamily: 'Lobster Two, cursive'
+									}}>
+									organizer:
+								</strong>
 								{evt.organizer.username}
 							</footer>
 							<button
 								onClick={this.cancelHandler.bind(this, evt._id)}
-								className='btn btn-light'
-								style={{ fontSize: '1.3rem', marginRight: '.3rem' }}>
+								className='btn btn-dark'
+								style={{
+									fontSize: '1.6rem',
+									marginRight: '.3rem',
+									fontFamily: 'Lobster Two, cursive'
+								}}>
 								Cancel Rsvp
 							</button>
 
@@ -96,7 +133,11 @@ export class SelectedEvent extends Component {
 								<button
 									onClick={() => this.props.editEvent()}
 									className='btn btn-success'
-									style={{ fontSize: '1.3rem', marginRight: '.3rem' }}>
+									style={{
+										fontSize: '1.6rem',
+										marginRight: '.3rem',
+										fontFamily: 'Lobster Two, cursive'
+									}}>
 									Edit
 								</button>
 							)}
@@ -104,13 +145,22 @@ export class SelectedEvent extends Component {
 								<button
 									onClick={() => this.props.toDelete()}
 									className='btn btn-danger'
-									style={{ fontSize: '1.3rem' }}>
+									style={{
+										fontSize: '1.6rem',
+										fontFamily: 'Lobster Two, cursive'
+									}}>
 									Delete
 								</button>
 							)}
-							<Link to='/Home' className='nav-link'>
+							<button
+								className='d-block btn btn-light mt-2 text-primary'
+								style={{
+									fontSize: '1.3rem',
+									fontFamily: 'Lobster Two, cursive'
+								}}
+								onClick={() => this.props.history.goBack()}>
 								Go back
-							</Link>
+							</button>
 						</div>
 					))
 				)}
@@ -137,4 +187,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(SelectedEvent);
+)(withRouter(SelectedEvent));
