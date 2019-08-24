@@ -42,7 +42,7 @@ const EventsSchema = new mongoose.Schema({
 	rsvps: [String],
 	created: {
 		type: Date,
-		default: new Date.now(),
+		default: Date.now(),
 		required: true
 	},
 	date: {
