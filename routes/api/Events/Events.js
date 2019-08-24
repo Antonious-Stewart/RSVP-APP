@@ -150,7 +150,7 @@ router.delete('/:id', auth, async (req, res) => {
 		if (!event) {
 			return res.status(404).send('Not found');
 		}
-		res.send(200).send(event);
+		res.status(200).send(event);
 	} catch (err) {
 		console.error(err);
 		res.status(500).send(err);
