@@ -42,12 +42,19 @@ const EventsSchema = new mongoose.Schema({
 	rsvps: [String],
 	created: {
 		type: Date,
-		default: new Date().toDateString(),
+		default: new Date.now(),
 		required: true
 	},
 	date: {
 		type: Date,
-		required: true
+		required: true,
+		validate(value) {
+			if (
+				!Object.is(new Date(value).getFullYear() > new Date().getFullYear())
+			) {
+				throw new Error('Must Be within this year');
+			}
+		}
 	}
 });
 EventsSchema.pre('remove', async function(next) {
