@@ -30,13 +30,18 @@ class Landing extends Component {
 	};
 
 	submitHandler = (data, evt) => {
-		if (
-			this.state.password === this.state.confirmPassword &&
-			this.state.email === this.state.confirmEmail
-		) {
+		const { password, confirmEmail, confirmPassword, email } = this.state;
+		if (password !== confirmPassword) {
+			evt.preventDefault();
+			this.setState({ password: '', confirmPassword: '' });
+			return alert('Passwords must match');
+		} else if (email !== confirmEmail) {
+			evt.preventDefault();
+			this.setState({ email: '', confirmEmail: '' });
+			return alert('Emails must match');
+		} else {
 			evt.preventDefault();
 			this.props.submitForm(data);
-
 			this.setState({
 				username: '',
 				password: '',
@@ -45,9 +50,6 @@ class Landing extends Component {
 				confirmPassword: '',
 				location: ''
 			});
-		} else {
-			evt.preventDefault();
-			return alert('check form');
 		}
 	};
 
