@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Moment from 'react-moment';
 export default class Events extends Component {
 	render() {
 		Events.propTypes = {
@@ -36,9 +37,9 @@ export default class Events extends Component {
 				</p>
 				<div>
 					<strong style={{ fontFamily: 'Lobster Two', fontSize: '1.6rem' }}>
-						Date
+						Date:
 					</strong>
-					:{date}
+					<Moment date={date} format='LLLL' />
 				</div>
 				<button
 					onClick={this.props.view}
