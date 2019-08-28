@@ -87,6 +87,8 @@ router.patch('/:id/edit', auth, async (req, res) => {
 			//update the event
 			updates.forEach(update => (event[update] = req.body[update]));
 			await event.save();
+			await event.populate('organizer').execPopulate();
+			await event.save();
 			res.status(200).send(event);
 		}
 	} catch (err) {

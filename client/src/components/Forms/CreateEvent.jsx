@@ -17,7 +17,7 @@ export class CreateEvent extends Component {
 	submitHandler = (data, evt) => {
 		evt.preventDefault();
 		this.props.createEvent(data);
-		this.props.history.push('/');
+		this.props.history.push('/Home');
 	};
 	render() {
 		const { title, description, date, location } = this.state;

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import Moment from 'react-moment';
 import * as actionCreators from '../../store/actions/Events/creators';
 import EditEvent from './EditEvent';
 import DeleteEventModal from '../Modals/DeleteEventModal';
@@ -17,7 +18,7 @@ export class SelectedEvent extends Component {
 	};
 	cancelHandler = id => {
 		this.props.cancel(id);
-		this.setState({ redirect: true });
+		this.props.history.goBack();
 	};
 
 	render() {
@@ -80,7 +81,7 @@ export class SelectedEvent extends Component {
 									}}>
 									Date:
 								</strong>
-								{evt.date}
+								<Moment date={evt.date} format='LLLL' />
 							</p>
 							<p
 								style={{

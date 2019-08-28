@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import * as actionCreators from '../../store/actions/Events/creators';
 
 export class EditEvent extends Component {
@@ -47,6 +48,7 @@ export class EditEvent extends Component {
 							location: '',
 							date: ''
 						});
+						this.props.history.push(`/Event/${this.props.event._id}`);
 					}}>
 					<div className='form-group'>
 						<label
@@ -152,4 +154,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(EditEvent);
+)(withRouter(EditEvent));

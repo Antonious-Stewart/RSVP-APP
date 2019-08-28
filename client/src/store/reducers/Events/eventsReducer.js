@@ -17,8 +17,7 @@ export default (state = initState, action) => {
 		case actionTypes.CREATE_EVENT_SUCCES:
 			return {
 				...state,
-				events: [...state.events, payload],
-				fetchUserEvents: true
+				events: [...state.events, payload]
 			};
 		case actionTypes.GET_EVENTS_SUCCESS:
 			return {
