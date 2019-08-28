@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import * as actionCreators from '../../store/actions/Events/creators';
 
 export class EditEvent extends Component {
@@ -26,7 +26,7 @@ export class EditEvent extends Component {
 			<div
 				style={{
 					display: 'flex',
-					height: '100vh',
+					height: '90vh',
 					alignItems: 'center',
 					justifyContent: 'center',
 					padding: '2rem'
@@ -36,7 +36,7 @@ export class EditEvent extends Component {
 						padding: '1.5rem',
 						boxShadow: '0 0 4px rgba(0,0,0,.4)',
 						fontSize: '1.4rem',
-						width: '60rem'
+						width: '85vw'
 					}}
 					action='POST'
 					onSubmit={evt => {
@@ -48,12 +48,16 @@ export class EditEvent extends Component {
 							location: '',
 							date: ''
 						});
+						this.props.history.push(`/Event/${this.props.event._id}`);
 					}}>
 					<div className='form-group'>
 						<label
 							htmlFor='title'
 							className='text-success'
-							style={{ fontSize: '1.6rem' }}>
+							style={{
+								fontSize: '1.8rem',
+								fontFamily: 'Lobster Two, cursive'
+							}}>
 							Title
 						</label>
 						<input
@@ -68,7 +72,10 @@ export class EditEvent extends Component {
 						<label
 							htmlFor='location'
 							className='text-success'
-							style={{ fontSize: '1.6rem' }}>
+							style={{
+								fontSize: '1.8rem',
+								fontFamily: 'Lobster Two, cursive'
+							}}>
 							Location
 						</label>
 						<input
@@ -83,7 +90,10 @@ export class EditEvent extends Component {
 						<label
 							htmlFor='date'
 							className='text-success'
-							style={{ fontSize: '1.6rem' }}>
+							style={{
+								fontSize: '1.8rem',
+								fontFamily: 'Lobster Two, cursive'
+							}}>
 							Date
 						</label>
 						<input
@@ -98,7 +108,10 @@ export class EditEvent extends Component {
 						<label
 							htmlFor='description'
 							className='text-success'
-							style={{ fontSize: '1.6rem' }}>
+							style={{
+								fontSize: '1.8rem',
+								fontFamily: 'Lobster Two, cursive'
+							}}>
 							Description
 						</label>
 						<textarea
@@ -114,7 +127,7 @@ export class EditEvent extends Component {
 					</div>
 					<button
 						className='btn btn-block mt-2 mb-2 btn-success'
-						style={{ fontSize: '1.5rem' }}>
+						style={{ fontSize: '1.7rem', fontFamily: 'Lobster Two, cursive' }}>
 						Save
 					</button>
 					<button
@@ -141,4 +154,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(EditEvent);
+)(withRouter(EditEvent));

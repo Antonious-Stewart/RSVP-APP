@@ -13,8 +13,13 @@ app.use(express.urlencoded({ extended: true }));
 //use express router with api routes
 app.use('/api/user', userAPIRoute);
 app.use('/api/events', eventAPIRoute);
-// render static assets
-const publicDirectory = path.join(__dirname, '/client/build/');
-app.use(express.static(publicDirectory));
+//serve static assest in production
+if (process.env.NODE_ENV === 'production') {
+	app.use(express.static('client/build'));
 
+	// Handle React routing, return all requests to React app
+	app.get('*', function(req, res) {
+		res.sendFile(path.resolve(__dirname, '/client/build', 'index.html'));
+	});
+}
 module.exports = app;

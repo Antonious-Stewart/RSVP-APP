@@ -6,8 +6,7 @@ import * as actionCreators from '../../store/actions/Auth/creators';
 export class ChangePassword extends Component {
 	state = {
 		password: '',
-		confirmPassword: '',
-		redirect: false
+		confirmPassword: ''
 	};
 	static propTypes = {
 		user: PropTypes.object.isRequired
@@ -17,9 +16,9 @@ export class ChangePassword extends Component {
 		this.props.save(id, data);
 		this.setState({
 			password: '',
-			confirmPassword: '',
-			redirect: true
+			confirmPassword: ''
 		});
+		this.props.history.goBack();
 	};
 	changeHandler = evt => {
 		const { name, value } = evt.target;
@@ -35,8 +34,8 @@ export class ChangePassword extends Component {
 					justifyContent: 'center',
 					height: '94.7vh'
 				}}>
-				{this.state.redirect && <Redirect to='/Profile' />}
 				<form
+					style={{ width: '25rem' }}
 					onSubmit={this.submitHandler.bind(this, this.props.user._id, {
 						password
 					})}>

@@ -31,7 +31,11 @@ class SignUpForm extends Component {
 				width: '80vw'
 			}
 		};
-		const labeStyles = { color: '#28a745', fontSize: '1.4rem' };
+		const labeStyles = {
+			color: '#28a745',
+			fontSize: '1.8rem',
+			fontFamily: 'Lobster Two'
+		};
 		return (
 			<form
 				id='Sign_up_form'

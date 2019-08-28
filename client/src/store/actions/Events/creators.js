@@ -12,7 +12,7 @@ const getEventsFail = () => {
 		type: actionTypes.GET_EVENTS_FAIL
 	};
 };
-
+// call events endpoint to get events user is attending
 export const getEvents = () => async dispatch => {
 	try {
 		const res = await axios.get('/api/events/');
@@ -32,15 +32,16 @@ const rsvpSuccess = res => ({
 	payload: res.data
 });
 const rsvpFail = () => ({ type: actionTypes.RSVP_FAIL });
-
+//make call to rsvp endpoint to allow users to rsvp to events
 export const rsvp = id => async dispatch => {
 	try {
-		const res = await axios.post(`/api/events/${id}`);
+		const res = await axios.post(`/api/events/rsvp/${id}`);
 		dispatch(rsvpSuccess(res));
 	} catch (err) {
 		dispatch(rsvpFail());
 	}
 };
+//cancel rsvp to events the user has rsvp'd to
 export const cancelRsvp = id => async dispatch => {
 	try {
 		const res = await axios.post(`/api/events/cancel rsvp/${id}`);
@@ -61,7 +62,7 @@ const createEventFail = () => {
 		type: actionTypes.CREATE_EVENT_FAIL
 	};
 };
-
+//make call to create endpoint to create a new event
 export const createEvent = data => async dispatch => {
 	try {
 		const res = await axios.post('/api/events/create', data);
@@ -77,7 +78,7 @@ const viewEventSuccess = res => ({
 const viewEventFail = res => ({
 	type: actionTypes.VIEW_EVENT_FAIL
 });
-
+//make call to view event endpoint to create a new event
 export const viewEvent = id => async dispatch => {
 	try {
 		const res = await axios.get(`/api/events/${id}`);
@@ -139,6 +140,12 @@ const deleteById = result => ({
 	type: actionTypes.DELETE_EVENT,
 	payload: result.data._id
 });
+//turn delete flag on to open delete event modal
+export const toDelete = () => ({type:actionTypes.TO_DELETE_EVENT})
+//turn delete flag off to close delete event modal
+export const cancelDelete = () => ({ type: actionTypes.TO_CANCEL_DELETE })
+//make request to endpoint to delete the event and get a 200 status code
+//with the deleted event as the response
 export const deleteEvent = id => async dispatch => {
 	try {
 		const res = await axios.delete(`/api/events/${id}`);

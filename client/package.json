@@ -41,6 +41,9 @@
 			"last 1 safari version"
 		]
 	},
+	"jest": {
+		"testEnvironment": "jsdom"
+	},
 	"devDependencies": {
 		"check-prop-types": "^1.1.2",
 		"enzyme": "^3.10.0",

@@ -1,4 +1,5 @@
 import * as actionTypes from '../../actions/Auth/types';
+import * as eventActionTypes from '../../actions/Events/types';
 //intial state
 const intialState = {
 	isAuth: null,
@@ -90,6 +91,16 @@ const authReducer = (state = intialState, action) => {
 			return {
 				...state,
 				logoutAll: false
+			};
+		case eventActionTypes.RSVP_SUCCESS:
+			return {
+				...state,
+				user: { ...payload }
+			};
+		case eventActionTypes.CANCEL_RSVP:
+			return {
+				...state,
+				user: { ...payload }
 			};
 		default:
 			return {

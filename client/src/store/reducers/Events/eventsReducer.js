@@ -7,7 +7,8 @@ const initState = {
 	selectedEvent: [],
 	searchedEvents: [],
 	edit: null,
-	cancelRsvp: null
+	cancelRsvp: null,
+	delete: null
 };
 
 export default (state = initState, action) => {
@@ -58,6 +59,11 @@ export default (state = initState, action) => {
 					payload.attending.includes(event.title)
 				)
 			};
+		case actionTypes.RSVP_SUCCESS:
+			return {
+				...state,
+				fetchUserEvents: true
+			};
 		case actionTypes.VIEW_EVENT_SUCCESS:
 			return {
 				...state,
@@ -78,6 +84,23 @@ export default (state = initState, action) => {
 				search: false,
 				fetchUserEvents: true,
 				searchedEvents: []
+			};
+		case actionTypes.TO_DELETE_EVENT:
+			return {
+				...state,
+				delete: true
+			};
+		case actionTypes.TO_CANCEL_DELETE:
+			return {
+				...state,
+				delete: false
+			};
+		case actionTypes.DELETE_EVENT:
+			return {
+				...state,
+				delete: false,
+				selectedEvent: [],
+				events: state.events.filter(event => event !== payload)
 			};
 		default:
 			return {

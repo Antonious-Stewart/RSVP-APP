@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
-class DeleteModal extends Component {
+class DeleteEventModal extends Component {
 	render() {
 		return (
 			<div>
@@ -58,19 +58,11 @@ class DeleteModal extends Component {
 								fontSize: '1.6rem'
 							}
 						}}>
-						You are currently attempting to delete your account this cannot be
-						undone once completed you will loose all information pertaining to
-						this account if you would like to procced please enter your email
-						address.
+						You are currently attempting to delete this event once deleted this
+						cannot be undone this event will still show in users attendings
+						sections be sure to give attendees time to cancel rsvps before
+						removing.
 					</p>
-					<input
-						type='text'
-						name='valid'
-						id='valid'
-						value={this.props.valid}
-						onChange={this.props.change}
-						className='form-control mb-2'
-					/>
 					<footer
 						style={{
 							display: 'flex',
@@ -85,8 +77,7 @@ class DeleteModal extends Component {
 									fontSize: '1.2rem'
 								}
 							}}
-							onClick={this.props.delete}
-							disabled={this.props.isValid}>
+							onClick={this.props.delete}>
 							Delete
 						</button>
 						<button
@@ -107,4 +98,4 @@ class DeleteModal extends Component {
 	}
 }
 
-export default Radium(DeleteModal);
+export default Radium(DeleteEventModal);

@@ -24,8 +24,8 @@
 
 @media (max-width: 600px) {
   .img-banner {
-   width: 100vw;
-   height: 100vh;
-   background: url('../../assets/andrew-neel-QLqNalPe0RA-unsplash.jpg') center /cover no-repeat;
- }
+    width: 100vw;
+    height: 100vh;
+    background: url('../../assets/andrew-neel-QLqNalPe0RA-unsplash.jpg') center /cover no-repeat;
+  }
 }

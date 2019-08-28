@@ -59,6 +59,8 @@ router.get('/:id', auth, async (req, res) => {
 		if (!event) {
 			return res.status(404).send('not found');
 		}
+		await event.populate('organizer').execPopulate();
+		await event.save();
 		res.status(200).json(event);
 	} catch (err) {
 		res.status(500).send(err);
@@ -85,6 +87,8 @@ router.patch('/:id/edit', auth, async (req, res) => {
 			//update the event
 			updates.forEach(update => (event[update] = req.body[update]));
 			await event.save();
+			await event.populate('organizer').execPopulate();
+			await event.save();
 			res.status(200).send(event);
 		}
 	} catch (err) {
@@ -109,7 +113,7 @@ router.post('/rsvp/:id', auth, async (req, res) => {
 		// add event to users events they are attending
 		req.user.attending = [...req.user.attending, event.title];
 		await req.user.save();
-		res.status(201).send(event);
+		res.status(201).send(req.user);
 	} catch (err) {
 		console.error(err);
 		res.status(500).send(err);
@@ -148,7 +152,7 @@ router.delete('/:id', auth, async (req, res) => {
 		if (!event) {
 			return res.status(404).send('Not found');
 		}
-		res.send(200).send(event);
+		res.status(200).send(event);
 	} catch (err) {
 		console.error(err);
 		res.status(500).send(err);
