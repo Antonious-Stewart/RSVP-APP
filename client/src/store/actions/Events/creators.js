@@ -141,7 +141,7 @@ export const editEvent = (id, data) => async dispatch => {
 		dispatch(setAlert('Successfully updated event', 'success'));
 	} catch (err) {
 		dispatch(saveEventFail());
-		dispatch(setAlert('Error in updating event', 'success'));
+		dispatch(setAlert('Error in updating event', 'warning'));
 	}
 };
 //action creator for deleting a event by its id

@@ -92,7 +92,7 @@ router.patch('/profile/:id/edit', auth, async (req, res) => {
 router.delete('/profile/:id', auth, async (req, res) => {
 	try {
 		await req.user.remove();
-		res.status(202).send(req.user);
+		res.status(200).send(req.user);
 	} catch (err) {
 		res.status(500).send(err);
 	}
