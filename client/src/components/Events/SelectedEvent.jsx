@@ -6,6 +6,7 @@ import Moment from 'react-moment';
 import * as actionCreators from '../../store/actions/Events/creators';
 import EditEvent from './EditEvent';
 import DeleteEventModal from '../Modals/DeleteEventModal';
+import Alert from '../Alerts/Alert';
 
 export class SelectedEvent extends Component {
 	static propTypes = {
@@ -31,6 +32,7 @@ export class SelectedEvent extends Component {
 					padding: '3rem 0 9rem 0',
 					minHeight: '100vh'
 				}}>
+				<Alert />
 				{this.props.delete && (
 					<DeleteEventModal
 						cancelDelete={() => {

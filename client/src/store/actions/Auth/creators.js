@@ -1,5 +1,6 @@
 import * as actionTypes from './types';
 import setAuthToken from '../../../Utils/setAuthToken';
+import { setAlert } from '../Alerts/creators';
 import axios from 'axios';
 //load user
 const load = result => {
@@ -76,6 +77,9 @@ export const login = data => async dispatch => {
 		dispatch(loadUser());
 	} catch (err) {
 		dispatch(loginFail());
+		dispatch(
+			setAlert('Unable To Login In. Email/Password is invalid', 'warning')
+		);
 	}
 };
 //logout
@@ -90,6 +94,7 @@ export const logout = () => async dispatch => {
 	try {
 		await axios.post('/api/user/logout');
 		dispatch(logoutSession());
+		dispatch(setAlert('Logged Out', 'dark'));
 	} catch (err) {
 		console.error(err);
 	}
@@ -106,6 +111,7 @@ export const logoutAll = () => async dispatch => {
 	try {
 		await axios.post('/api/user/logoutall');
 		dispatch(logoutAllSessions());
+		dispatch(setAlert('Logged Out of all sessions', 'dark'));
 	} catch (err) {
 		console.error(err);
 	}

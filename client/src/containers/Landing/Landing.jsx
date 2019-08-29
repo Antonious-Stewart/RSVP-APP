@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Radium from 'radium';
 import SignUpForm from '../../components/Forms/SignUpForm';
 import * as actionCreators from '../../store/actions/Auth/creators';
 import './Landing.css';
-
+import { setAlert } from '../../store/actions/Alerts/creators';
+import Alert from '../../components/Alerts/Alert';
 class Landing extends Component {
 	state = {
 		username: '',
@@ -34,11 +34,11 @@ class Landing extends Component {
 		if (password !== confirmPassword) {
 			evt.preventDefault();
 			this.setState({ password: '', confirmPassword: '' });
-			return alert('Passwords must match');
+			return this.props.setAlert('Passwords do not match', 'warning');
 		} else if (email !== confirmEmail) {
 			evt.preventDefault();
 			this.setState({ email: '', confirmEmail: '' });
-			return alert('Emails must match');
+			return this.props.setAlert('Email does not match', 'warning');
 		} else {
 			evt.preventDefault();
 			this.props.submitForm(data);
@@ -91,7 +91,7 @@ class Landing extends Component {
 
 		return (
 			<div style={{ height: '100vh' }}>
-				{' '}
+				<Alert />
 				<h1 style={headingStyles}> ReserveIT </h1>
 				<div className='img-banner' />
 				<SignUpForm
@@ -110,7 +110,8 @@ class Landing extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-	submitForm: result => dispatch(actionCreators.SignUp(result))
+	submitForm: result => dispatch(actionCreators.SignUp(result)),
+	setAlert: (msg, alertType) => dispatch(setAlert(msg, alertType))
 });
 
 Landing = Radium(Landing);

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as actionCreators from '../../store/actions/Auth/creators';
 import LoginForm from '../../components/Forms/LoginForm';
+import Alert from '../../components/Alerts/Alert';
 export class Login extends Component {
 	state = {
 		email: '',
@@ -23,6 +24,7 @@ export class Login extends Component {
 	render() {
 		return (
 			<div>
+				<Alert />
 				<LoginForm
 					change={this.changeHandler}
 					email={this.state.email}

@@ -7,6 +7,7 @@ import Radium from 'radium';
 import Events from './Events';
 import * as actionCreators from '../../store/actions/Events/creators';
 import setAuthToken from '../../Utils/setAuthToken';
+import Alert from '../Alerts/Alert';
 
 export class Event extends Component {
 	componentDidMount() {
@@ -36,6 +37,7 @@ export class Event extends Component {
 		};
 		return (
 			<div>
+				<Alert />
 				<div style={eventStyles}>
 					{this.props.loading ? (
 						<div className='spinner-grow' />

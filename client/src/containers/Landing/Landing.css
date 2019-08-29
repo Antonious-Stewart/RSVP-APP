@@ -16,11 +16,7 @@
   transition: .3s ease-in-out
 }
 
-#Sign_up_form input[type="text"]:focus,
-#Sign_up_form input[type="password"]:focus {
-  border: .125rem solid #28a745;
-  box-shadow: 0 0 5px #28a745;
-}
+
 
 @media (max-width: 600px) {
   .img-banner {

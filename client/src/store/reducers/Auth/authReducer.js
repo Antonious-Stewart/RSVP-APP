@@ -102,6 +102,14 @@ const authReducer = (state = intialState, action) => {
 				...state,
 				user: { ...payload }
 			};
+		case eventActionTypes.CREATE_EVENT_SUCCES:
+			return {
+				...state,
+				user: {
+					...state.user,
+					attending: [...state.user.attending, payload.title]
+				}
+			};
 		default:
 			return {
 				...state

@@ -1,5 +1,6 @@
 import * as actionTypes from './types';
 import axios from 'axios';
+import { setAlert } from '../Alerts/creators';
 
 const getEventSuccess = result => {
 	return {
@@ -37,8 +38,10 @@ export const rsvp = id => async dispatch => {
 	try {
 		const res = await axios.post(`/api/events/rsvp/${id}`);
 		dispatch(rsvpSuccess(res));
+		dispatch(setAlert("Successfully RSVP'd", 'success'));
 	} catch (err) {
 		dispatch(rsvpFail());
+		dispatch(setAlert("Can't RSVP to this event at this time"));
 	}
 };
 //cancel rsvp to events the user has rsvp'd to
@@ -46,6 +49,7 @@ export const cancelRsvp = id => async dispatch => {
 	try {
 		const res = await axios.post(`/api/events/cancel rsvp/${id}`);
 		dispatch(cancelSuccess(res));
+		dispatch(setAlert('You have canceled your resvervation.', 'success'));
 	} catch (err) {
 		console.error(err);
 		return err;
@@ -67,8 +71,10 @@ export const createEvent = data => async dispatch => {
 	try {
 		const res = await axios.post('/api/events/create', data);
 		dispatch(createEventSuccess(res));
+		dispatch(setAlert('Successfully created event!', 'success'));
 	} catch {
 		dispatch(createEventFail());
+		dispatch(setAlert('Error creating event try again', 'warning'));
 	}
 };
 const viewEventSuccess = res => ({
@@ -115,6 +121,7 @@ export const search = query => async dispatch => {
 		dispatch(searchQuery(res));
 	} catch (err) {
 		dispatch(searchFail());
+		dispatch(setAlert('No events found by that title', 'dark'));
 	}
 };
 // action creator to change edit state to true
@@ -131,8 +138,10 @@ export const editEvent = (id, data) => async dispatch => {
 	try {
 		const res = await axios.patch(`/api/events/${id}/edit`, data);
 		dispatch(saveEventSuccess(res));
+		dispatch(setAlert('Successfully updated event', 'success'));
 	} catch (err) {
 		dispatch(saveEventFail());
+		dispatch(setAlert('Error in updating event', 'success'));
 	}
 };
 //action creator for deleting a event by its id
@@ -141,15 +150,16 @@ const deleteById = result => ({
 	payload: result.data._id
 });
 //turn delete flag on to open delete event modal
-export const toDelete = () => ({type:actionTypes.TO_DELETE_EVENT})
+export const toDelete = () => ({ type: actionTypes.TO_DELETE_EVENT });
 //turn delete flag off to close delete event modal
-export const cancelDelete = () => ({ type: actionTypes.TO_CANCEL_DELETE })
+export const cancelDelete = () => ({ type: actionTypes.TO_CANCEL_DELETE });
 //make request to endpoint to delete the event and get a 200 status code
 //with the deleted event as the response
 export const deleteEvent = id => async dispatch => {
 	try {
 		const res = await axios.delete(`/api/events/${id}`);
 		dispatch(deleteById(res));
+		dispatch(setAlert('Successfully deleted Event', 'danger'));
 	} catch (err) {
 		dispatch({ type: actionTypes.ERROR });
 	}

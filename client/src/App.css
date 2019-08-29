@@ -12,6 +12,14 @@ header {
   background: url('./assets/maria-teneva-rHlaMHAzfYM-unsplash.jpg') center /cover no-repeat;
 }
 
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime-local"]:focus,
+textarea:focus {
+  border: .125rem solid #28a745 !important;
+  box-shadow: 0 0 5px #28a745 !important;
+}
+
 @keyframes spinner-grow {
   0% {
     transform: translate(-50%, -50%) scale(0)

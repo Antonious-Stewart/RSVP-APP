@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import * as Bootstrap from 'reactstrap';
-import { Link, NavLink } from 'react-router-dom';
+
 export default class Footer extends Component {
 	render() {
 		return (
@@ -16,19 +16,23 @@ export default class Footer extends Component {
 				}}>
 				<Bootstrap.Nav style={{ alignItems: 'center' }}>
 					<li className='nav-item'>
-						<Link
+						<a
 							className='nav-link text-white'
-							to='https://github.com/Antonious-Stewart'>
+							target='_blank'
+							rel='noopener noreferrer'
+							href='https://github.com/Antonious-Stewart'>
 							Github
-						</Link>
+						</a>
 					</li>
 					<li className='nav-item'>
-						<NavLink
+						<a
+							target='_blank'
+							rel='noopener noreferrer'
 							href='https://www.linkedin/in/antonious-stewart'
 							className='nav-link text-white'
 							to='https://www.linkedin/in/antonious-stewart'>
 							Linkedin
-						</NavLink>
+						</a>
 					</li>
 					<li className='nav-item text-white '>Antonious Stewart</li>
 				</Bootstrap.Nav>

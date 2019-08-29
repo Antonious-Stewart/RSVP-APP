@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import Radium from 'radium';
 import Events from './Events';
 import * as actionCreators from '../../store/actions/Events/creators';
+import Alert from '../Alerts/Alert';
 
 export class SearchedEvents extends Component {
 	constructor(props) {
@@ -52,6 +53,7 @@ export class SearchedEvents extends Component {
 		};
 		return (
 			<div>
+				<Alert />
 				<header style={headerStyles}>
 					<form
 						method='get'
