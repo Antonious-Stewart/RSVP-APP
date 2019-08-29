@@ -30,11 +30,11 @@ export default class Footer extends Component {
 							rel='noopener noreferrer'
 							href='https://www.linkedin/in/antonious-stewart'
 							className='nav-link text-white'
-							to='https://www.linkedin/in/antonious-stewart'>
+							to='https://www.linkedin.com/in/antonious-stewart/'>
 							Linkedin
 						</a>
 					</li>
-					<li className='nav-item text-white '>Antonious Stewart</li>
+					<li className='nav-item text-white '>Created by:Antonious Stewart</li>
 				</Bootstrap.Nav>
 			</footer>
 		);
