@@ -71,7 +71,9 @@ npm run dev
 
 #RoadMap
 UI improvements to be made for a cleaner and sleeker design
+
 #License
 MIT
+
 #Project Status
 completed
