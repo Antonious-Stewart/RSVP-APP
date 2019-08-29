@@ -18,11 +18,11 @@ export class Alert extends Component {
 							className={`bg-${alert.alertType}`}
 							style={{
 								position: 'fixed',
-								top: '8%',
+								top: '7%',
 								left: 0,
 								width: '100%',
-								padding: '1rem',
-								fontSize: '2.4rem',
+								padding: '.8rem',
+								fontSize: '2rem',
 								color: 'white',
 								fontFamily: 'Lobster Two , cursive',
 								zIndex: 1000,
