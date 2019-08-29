@@ -55,18 +55,7 @@ const EventsSchema = new mongoose.Schema({
 		}
 	}
 });
-EventsSchema.pre('remove', async function(next) {
-	const event = this;
-	const users = await User.find({ attending: event.title });
-	users = users.map(user =>
-		user.attending.filter(async attend => {
-			attend !== event.title;
-			await user.save();
-		})
-	);
-	console.log(users);
-	next();
-});
+
 const Event = mongoose.model('Event', EventsSchema);
 
 module.exports = Event;
