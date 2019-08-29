@@ -1,7 +1,7 @@
 {
-	"name": "src",
+	"name": "reserveit",
 	"version": "1.0.0",
-	"description": "",
+	"description": "ReserveIt is a FullStack MERN (Mongoose, Express, React, Node) app that allows users to create events and reserve a spot at an event they find interesting.",
 	"main": "server.js",
 	"scripts": {
 		"test": "env-cmd --file config/test.env jest --watchAll",
@@ -15,9 +15,22 @@
 	"jest": {
 		"testEnvironment": "node"
 	},
-	"keywords": [],
+	"keywords": [
+		"rsvp",
+		"app",
+		"reserve",
+		"antonious",
+		"stewart",
+		"react",
+		"node",
+		"express",
+		"mongoose",
+		"mern",
+		"it",
+		"reserveit"
+	],
 	"author": "Antonious Stewart",
-	"license": "ISC",
+	"license": "MIT",
 	"devDependencies": {
 		"concurrently": "^4.1.1",
 		"env-cmd": "^9.0.3",
