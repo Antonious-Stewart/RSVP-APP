@@ -48,7 +48,6 @@ export class ChangePassword extends Component {
 							onChange={this.changeHandler}
 							value={this.state.password}
 							className='form-control'
-							required
 						/>
 						<input
 							type='password'
@@ -58,7 +57,6 @@ export class ChangePassword extends Component {
 							placeholder='confirm New Password'
 							onChange={this.changeHandler}
 							value={this.state.confirmPassword}
-							required
 						/>
 					</div>
 					<button
