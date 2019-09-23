@@ -13,6 +13,7 @@ router.post('/', async (req, res) => {
 		await user.generateAuthToken();
 		res.status(201).send(user);
 	} catch (err) {
+		console.log(err);
 		res.status(500).send(err);
 	}
 });
@@ -31,6 +32,7 @@ router.post('/login', async (req, res) => {
 		res.status(400).send(err);
 	}
 });
+
 //signout user
 router.post('/logout', auth, async (req, res) => {
 	// remove the token the user is currently using from the session

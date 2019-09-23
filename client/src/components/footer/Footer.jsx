@@ -28,9 +28,8 @@ export default class Footer extends Component {
 						<a
 							target='_blank'
 							rel='noopener noreferrer'
-							href='https://www.linkedin/in/antonious-stewart'
-							className='nav-link text-white'
-							to='https://www.linkedin.com/in/antonious-stewart/'>
+							href='https://www.linkedin.com/in/antonious-stewart/'
+							className='nav-link text-white'>
 							Linkedin
 						</a>
 					</li>

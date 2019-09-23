@@ -29,6 +29,9 @@ export class Navbar extends Component {
 					}}>
 					{this.props.auth ? this.props.user.username : 'reserveIt'}
 				</Link>
+				<button className='btn btn-light' onClick={() => this.props.demo()}>
+					Demo
+				</button>
 				<Bootstrap.NavbarToggler
 					className='d-lg-none'
 					onClick={this.props.navClick}
@@ -84,7 +87,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	logout: () => dispatch(authActionCreators.logout())
+	logout: () => dispatch(authActionCreators.logout()),
+	demo: () => dispatch(authActionCreators.demonstration())
 });
 
 export default connect(

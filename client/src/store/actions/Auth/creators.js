@@ -2,6 +2,7 @@ import * as actionTypes from './types';
 import setAuthToken from '../../../Utils/setAuthToken';
 import { setAlert } from '../Alerts/creators';
 import axios from 'axios';
+import faker from 'faker';
 //load user
 const load = result => {
 	return {
@@ -51,7 +52,6 @@ export const SignUp = result => async dispatch => {
 		dispatch(signUpSuccess(res));
 		dispatch(loadUser());
 	} catch (err) {
-		console.error(err);
 		dispatch(signUpFail());
 	}
 };
@@ -147,5 +147,22 @@ export const deleteUserProfile = id => async dispatch => {
 		dispatch(deleteProfile(res));
 	} catch (err) {
 		dispatch({ type: 'ERROR' });
+	}
+};
+
+// demonstration login for guest to use to test out the site and give feedback
+export const demonstration = () => async dispatch => {
+	try {
+		const res = await axios.post('/api/user', {
+			username: faker.name.findName(),
+			email: faker.internet.email(),
+			location: faker.address.city(),
+			attending: [],
+			password: 'mypass123'
+		});
+		dispatch(signUpSuccess(res));
+		dispatch(loadUser());
+	} catch (err) {
+		dispatch(signUpFail());
 	}
 };

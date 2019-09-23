@@ -46,6 +46,7 @@ const authReducer = (state = intialState, action) => {
 			};
 		case actionTypes.SIGNUP_SUCCESS:
 		case actionTypes.LOGIN_SUCCESS:
+		case actionTypes.DEMO:
 			localStorage.setItem(
 				'token',
 				payload.tokens[payload.tokens.length - 1].token
@@ -110,6 +111,7 @@ const authReducer = (state = intialState, action) => {
 					attending: [...state.user.attending, payload.title]
 				}
 			};
+
 		default:
 			return {
 				...state
